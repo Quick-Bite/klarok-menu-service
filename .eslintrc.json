@@ -2,5 +2,11 @@
     "extends": "airbnb",
     "parserOptions": {
         "ecmaVersion": 8
+    },
+    "rules": {
+      "no-console": "off"
+    },
+    "globals": {
+      "document": false
     }
 }
