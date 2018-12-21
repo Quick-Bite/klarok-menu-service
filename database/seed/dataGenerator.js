@@ -1,15 +1,4 @@
-// const MenuItem = require('./index');
 const faker = require('faker');
-
-// Parameters
-const numMenuItems = { max: 50, min: 10 };
-const numItemCategories = { max: 3, min: 1 };
-const numOptionalChoices = { max: 6, min: 0 };
-const numRequiredChoiceCategories = { max: 2, min: 0 };
-const numRequiredChoices = { max: 4, min: 2 };
-const priceRange = { max: 20, min: 1 };
-const popularFraction = 0.2;
-const spicyFraction = 0.1;
 
 const randomFloat = range => range.min + Math.random() * (range.max - range.min);
 const randomInt = range => Math.round(randomFloat(range));
@@ -36,6 +25,7 @@ const generateRequiredChoiceCategories = (numCategories, numChoices, prices) => 
     choices: generateChoicesArray(numChoices, prices),
   }))
 );
+
 const generateMenuItem = (restaurantId, category, params) => ({
   restaurantId,
   category,
@@ -51,3 +41,15 @@ const generateMenuItem = (restaurantId, category, params) => ({
   ),
   optionalChoices: generateChoicesArray(params.numOptionalChoices, params.priceRange),
 });
+
+const generateData = params => (
+  Array.from({ length: 100 }, (_, i) => {
+    const restaurantId = i + 1;
+    const itemCategories = generateMenuItemCategoriesArray(params.numItemCategories);
+    return randomArray(params.numMenuItems, () => (
+      generateMenuItem(restaurantId, itemCategories[randomIndex(itemCategories.length)], params)
+    ));
+  })
+);
+
+module.exports = generateData;
