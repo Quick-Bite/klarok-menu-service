@@ -1,3 +1,4 @@
+const MenuItem = require('../index');
 const generateData = require('./dataGenerator');
 
 const params = {
@@ -12,4 +13,11 @@ const params = {
 };
 
 const data = generateData(params);
-// TODO - save the generated data into the database
+
+MenuItem.insertMany(data, (err, menuItems) => {
+  if (err) {
+    return console.error(err);
+  }
+
+  return console.log('Insertion successful!');
+});
