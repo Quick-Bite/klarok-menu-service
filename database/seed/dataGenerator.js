@@ -42,14 +42,16 @@ const generateMenuItem = (restaurantId, category, params) => ({
   optionalChoices: generateChoicesArray(params.numOptionalChoices, params.priceRange),
 });
 
-const generateData = params => (
-  Array.from({ length: 100 }, (_, i) => {
-    const restaurantId = i + 1;
+const generateData = (params) => {
+  const data = [];
+  for (let restaurantId = 1; restaurantId <= 100; restaurantId += 1) {
     const itemCategories = generateMenuItemCategoriesArray(params.numItemCategories);
-    return randomArray(params.numMenuItems, () => (
+    const menuItems = randomArray(params.numMenuItems, () => (
       generateMenuItem(restaurantId, itemCategories[randomIndex(itemCategories.length)], params)
     ));
-  })
-);
+    data.push(...menuItems);
+  }
+  return data;
+};
 
 module.exports = generateData;
