@@ -14,7 +14,6 @@ const menuItemSchema = new mongoose.Schema({
   description: String,
   category: String,
   pictureUrl: String,
-  thumbnailUrl: String,
   popular: Boolean,
   spicy: Boolean,
   requiredChoiceCategories: [{
@@ -32,4 +31,4 @@ const menuItemSchema = new mongoose.Schema({
 
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
 
-export default MenuItem;
+module.exports = MenuItem;
