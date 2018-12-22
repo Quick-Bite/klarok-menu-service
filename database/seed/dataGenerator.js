@@ -29,6 +29,7 @@ const generateRequiredChoiceCategories = (numCategories, numChoices, prices) => 
 const generateMenuItem = (restaurantId, category, params) => ({
   restaurantId,
   category,
+  name: generateName(),
   price: randomFloat(params.priceRange),
   description: faker.lorem.paragraph(),
   pictureUrl: faker.image.food(),

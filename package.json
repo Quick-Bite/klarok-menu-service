@@ -10,7 +10,9 @@
   "scripts": {
     "start": "nodemon ./server/index.js",
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "seedDb": "node ./database/seed/seed.js",
+    "clearDb": "node ./database/seed/clearDatabase.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
