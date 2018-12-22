@@ -6,7 +6,9 @@
     "rules": {
       "no-console": "off"
     },
-    "globals": {
-      "document": false
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true
     }
 }
