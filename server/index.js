@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const MenuItem = require('../database');
+const db = require('../database');
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,14 +11,13 @@ app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '
 
 app.get('/restaurants/:id/menu-items', (req, res) => {
   const restaurantId = req.params.id;
-  MenuItem.find({ restaurantId })
+  db.find({ restaurantId })
     .then((menuItems) => {
-      console.log(menuItems[0]);
       res.send(menuItems);
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(404);
+      res.sendStatus(500);
     });
 });
 
