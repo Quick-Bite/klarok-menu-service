@@ -32,5 +32,7 @@ const menuItemSchema = new mongoose.Schema({
 });
 
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
+const getAllMenuItems = restaurantId => MenuItem.find({ restaurantId });
+const getSingleMenuItem = (restaurantId, itemId) => MenuItem.findOne({ restaurantId, itemId });
 
-module.exports = MenuItem;
+module.exports = { getAllMenuItems, getSingleMenuItem };

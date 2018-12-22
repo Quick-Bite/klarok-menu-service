@@ -9,28 +9,26 @@ app.use(express.static('public'));
 
 app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html')));
 
-app.get('/restaurants/:id/menu-items', (req, res) => {
+app.get('/restaurants/:id/menu-items', async (req, res) => {
   const restaurantId = req.params.id;
-  db.find({ restaurantId })
-    .then((menuItems) => {
-      res.send(menuItems);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  try {
+    const menuItems = await db.getAllMenuItems(restaurantId);
+    res.send(menuItems);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
 
-app.get('/restaurants/:id/menu-items/:itemId', (req, res) => {
+app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
   const { itemId, id: restaurantId } = req.params;
-  db.findOne({ restaurantId, itemId })
-    .then((menuItem) => {
-      res.send(menuItem);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  try {
+    const menuItem = await db.getSingleMenuItem(restaurantId, itemId);
+    res.send(menuItem);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
 
 const PORT = 3000;
