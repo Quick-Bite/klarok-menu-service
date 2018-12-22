@@ -5,7 +5,7 @@ const randomInt = range => Math.round(randomFloat(range));
 const randomIndex = length => Math.floor(Math.random() * length);
 const randomArray = (range, callback) => {
   const length = randomInt(range);
-  return Array.from({ length }, () => callback());
+  return Array.from({ length }, (value, index, array) => callback(value, index, array));
 };
 
 const generateName = () => faker.random.words();
@@ -26,8 +26,9 @@ const generateRequiredChoiceCategories = (numCategories, numChoices, prices) => 
   }))
 );
 
-const generateMenuItem = (restaurantId, category, params) => ({
+const generateMenuItem = (restaurantId, itemId, category, params) => ({
   restaurantId,
+  itemId,
   category,
   name: generateName(),
   price: randomFloat(params.priceRange),
@@ -47,9 +48,10 @@ const generateData = (params) => {
   const data = [];
   for (let restaurantId = 1; restaurantId <= 100; restaurantId += 1) {
     const itemCategories = generateMenuItemCategoriesArray(params.numItemCategories);
-    const menuItems = randomArray(params.numMenuItems, () => (
-      generateMenuItem(restaurantId, itemCategories[randomIndex(itemCategories.length)], params)
-    ));
+    const menuItems = randomArray(params.numMenuItems, (_, i) => {
+      console.log(i);
+      return generateMenuItem(restaurantId, i, itemCategories[randomIndex(itemCategories.length)], params)
+    });
     data.push(...menuItems);
   }
   return data;

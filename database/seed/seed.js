@@ -19,5 +19,7 @@ MenuItem.insertMany(data, (err, menuItems) => {
     return console.error(err);
   }
 
-  return console.log('Insertion successful!');
+  console.log('Insertion successful!');
+  console.log('First item of inserted data:');
+  console.log(menuItems[0]);
 });
