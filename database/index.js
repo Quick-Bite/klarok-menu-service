@@ -32,7 +32,9 @@ const menuItemSchema = new mongoose.Schema({
 });
 
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
-const getAllMenuItems = restaurantId => MenuItem.find({ restaurantId });
+const getAllMenuItems = restaurantId => (
+  MenuItem.find({ restaurantId }).select('-requiredChoiceCategories -optionalChoices')
+);
 const getSingleMenuItem = (restaurantId, itemId) => MenuItem.findOne({ restaurantId, itemId });
 
 module.exports = { getAllMenuItems, getSingleMenuItem };
