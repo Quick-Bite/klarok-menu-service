@@ -21,5 +21,17 @@ app.get('/restaurants/:id/menu-items', (req, res) => {
     });
 });
 
+app.get('/restaurants/:id/menu-items/:itemId', (req, res) => {
+  const { itemId, id: restaurantId } = req.params;
+  db.findOne({ restaurantId, itemId })
+    .then((menuItem) => {
+      res.send(menuItem);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Listening on localhost:${PORT}`));
