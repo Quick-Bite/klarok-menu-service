@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import MenuList from './MenuList';
+import AddItem from './AddItem';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class App extends React.Component {
     const { items, categories, currentItem } = this.state;
     return (
       <div>
-        {currentItem ? <div>{`Dummy Modal for Item ${currentItem.itemId}`}</div> : null}
+        {currentItem ? <AddItem itemId={currentItem.itemId} /> : null}
         <MenuList
           items={items}
           categories={categories}
