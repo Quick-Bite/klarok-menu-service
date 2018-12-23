@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MenuListItem = ({ item }) => (
-  <div>
+const MenuListItem = ({ item, menuListItemClick }) => (
+  <div onClick={() => menuListItemClick(item.itemId)}>
     <h3>{item.name}</h3>
     <p>{item.price}</p>
     <p>{item.description}</p>
@@ -22,6 +22,7 @@ MenuListItem.propTypes = {
     popular: PropTypes.bool.isRequired,
     spicy: PropTypes.bool.isRequired,
   }).isRequired,
+  menuListItemClick: PropTypes.func.isRequired,
 };
 
 export default MenuListItem;

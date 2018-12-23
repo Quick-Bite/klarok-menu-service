@@ -8,7 +8,9 @@ class App extends React.Component {
     this.state = {
       items: [],
       categories: [],
+      currentItem: null,
     };
+    this.menuListItemClick = this.menuListItemClick.bind(this);
   }
 
   componentDidMount() {
@@ -21,10 +23,26 @@ class App extends React.Component {
       });
   }
 
+  menuListItemClick(itemId) {
+    const url = `${window.location.pathname}/menu-items/${itemId}`;
+    axios.get(url.replace('//', '/'))
+      .then((response) => {
+        const item = response.data;
+        this.setState({ currentItem: item });
+      });
+  }
+
   render() {
-    const { items, categories } = this.state;
+    const { items, categories, currentItem } = this.state;
     return (
-      <MenuList items={items} categories={categories} />
+      <div>
+        {currentItem ? <div>{`Dummy Modal for Item ${currentItem.itemId}`}</div> : null}
+        <MenuList
+          items={items}
+          categories={categories}
+          menuListItemClick={this.menuListItemClick}
+        />
+      </div>
     );
   }
 }

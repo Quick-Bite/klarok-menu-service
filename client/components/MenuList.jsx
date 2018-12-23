@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MenuListItem from './MenuListItem';
 
-const MenuList = ({ items, categories }) => (
+const MenuList = ({ items, categories, menuListItemClick }) => (
   <div>
     {categories.map(category => (
       <div key={category}>
@@ -12,7 +12,7 @@ const MenuList = ({ items, categories }) => (
             .filter(item => item.category === category)
             .map(item => (
               <li key={item.itemId}>
-                <MenuListItem item={item} />
+                <MenuListItem item={item} menuListItemClick={menuListItemClick} />
               </li>
             ))}
         </ul>
@@ -24,6 +24,7 @@ const MenuList = ({ items, categories }) => (
 MenuList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  menuListItemClick: PropTypes.func.isRequired,
 };
 
 export default MenuList;
