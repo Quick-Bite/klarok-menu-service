@@ -5,7 +5,10 @@ import MenuList from './MenuList';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
+    this.state = {
+      items: [],
+      categories: [],
+    };
   }
 
   componentDidMount() {
@@ -13,14 +16,15 @@ class App extends React.Component {
     axios.get(url.replace('//', '/'))
       .then((response) => {
         const items = response.data;
-        this.setState({ items });
+        const categories = Array.from(new Set(items.map(item => item.category)));
+        this.setState({ items, categories });
       });
   }
 
   render() {
-    const { items } = this.state;
+    const { items, categories } = this.state;
     return (
-      <MenuList items={items} />
+      <MenuList items={items} categories={categories} />
     );
   }
 }
