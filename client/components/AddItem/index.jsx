@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nav from './Nav';
 import Header from './Header';
+import Footer from './Footer';
 
 const AddItem = ({ item }) => (
   <form>
@@ -17,9 +18,7 @@ const AddItem = ({ item }) => (
         <div>Required Choices Placeholder</div>
         <div>Special Instructions Placeholder</div>
       </section>
-      <footer>
-        <button type="button">Add to bag</button>
-      </footer>
+      <Footer price={item.price} />
     </div>
   </form>
 );
