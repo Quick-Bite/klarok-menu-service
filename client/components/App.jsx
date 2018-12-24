@@ -37,7 +37,7 @@ class App extends React.Component {
     const { items, categories, currentItem } = this.state;
     return (
       <div>
-        {currentItem ? <AddItem itemId={currentItem.itemId} /> : null}
+        {currentItem ? <AddItem item={currentItem} /> : null}
         <MenuList
           items={items}
           categories={categories}
