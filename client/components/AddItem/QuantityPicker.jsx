@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class QuantityPicker extends React.Component {
   constructor(props) {
@@ -14,16 +15,25 @@ class QuantityPicker extends React.Component {
     const quantity = Number(inputElement.value);
     inputElement.value = quantity;
     this.setState({ quantity });
+
+    const { updateQuantity } = this.props;
+    updateQuantity(quantity);
   }
 
   incrementQuantity() {
     const { quantity } = this.state;
     this.setState({ quantity: quantity + 1 });
+
+    const { updateQuantity } = this.props;
+    updateQuantity(quantity + 1);
   }
 
   decrementQuantity() {
     const { quantity } = this.state;
     this.setState({ quantity: quantity - 1 });
+
+    const { updateQuantity } = this.props;
+    updateQuantity(quantity - 1);
   }
 
   render() {
@@ -40,5 +50,9 @@ class QuantityPicker extends React.Component {
     );
   }
 }
+
+QuantityPicker.propTypes = {
+  updateQuantity: PropTypes.func.isRequired,
+};
 
 export default QuantityPicker;

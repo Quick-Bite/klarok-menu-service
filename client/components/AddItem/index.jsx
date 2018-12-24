@@ -5,24 +5,41 @@ import Header from './Header';
 import QuantityPicker from './QuantityPicker';
 import Footer from './Footer';
 
-const AddItem = ({ item }) => (
-  <form>
-    <Nav name={item.name} />
-    <div>
-      <Header name={item.name} price={item.price} />
-      <section>
-        <p>{item.description}</p>
-        <QuantityPicker />
-      </section>
-      <section>
-        <div>Optional Choices Placeholder</div>
-        <div>Required Choices Placeholder</div>
-        <div>Special Instructions Placeholder</div>
-      </section>
-      <Footer price={item.price} />
-    </div>
-  </form>
-);
+class AddItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantity: 1,
+    };
+    this.updateQuantity = this.updateQuantity.bind(this);
+  }
+
+  updateQuantity(quantity) {
+    this.setState({ quantity });
+  }
+
+  render() {
+    const { item } = this.props;
+    return (
+      <form>
+        <Nav name={item.name} />
+        <div>
+          <Header name={item.name} price={item.price} />
+          <section>
+            <p>{item.description}</p>
+            <QuantityPicker updateQuantity={this.updateQuantity} />
+          </section>
+          <section>
+            <div>Optional Choices Placeholder</div>
+            <div>Required Choices Placeholder</div>
+            <div>Special Instructions Placeholder</div>
+          </section>
+          <Footer price={item.price} />
+        </div>
+      </form>
+    );
+  }
+}
 
 AddItem.propTypes = {
   item: PropTypes.shape({
