@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Nav from './Nav';
 import Header from './Header';
 import QuantityPicker from './QuantityPicker';
+import OptionalChoices from './OptionalChoices';
 import Footer from './Footer';
 
 class AddItem extends React.Component {
@@ -20,7 +21,12 @@ class AddItem extends React.Component {
 
   render() {
     const { item } = this.props;
-    const { name, price, description } = item;
+    const {
+      name,
+      price,
+      description,
+      optionalChoices,
+    } = item;
     return (
       <form>
         <Nav name={name} />
@@ -31,7 +37,9 @@ class AddItem extends React.Component {
             <QuantityPicker updateQuantity={this.updateQuantity} />
           </section>
           <section>
-            <div>Optional Choices Placeholder</div>
+            {optionalChoices.length === 0
+              ? null
+              : <OptionalChoices optionalChoices={optionalChoices} />}
             <div>Required Choices Placeholder</div>
             <div>Special Instructions Placeholder</div>
           </section>
