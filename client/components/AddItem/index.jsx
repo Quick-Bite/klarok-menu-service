@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nav from './Nav';
 import Header from './Header';
+import QuantityPicker from './QuantityPicker';
 import Footer from './Footer';
 
 const AddItem = ({ item }) => (
@@ -11,7 +12,7 @@ const AddItem = ({ item }) => (
       <Header name={item.name} price={item.price} />
       <section>
         <p>{item.description}</p>
-        <div>Quantity Form Control Placeholder</div>
+        <QuantityPicker />
       </section>
       <section>
         <div>Optional Choices Placeholder</div>
