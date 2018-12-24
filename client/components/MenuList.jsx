@@ -5,7 +5,7 @@ import MenuListItem from './MenuListItem';
 const MenuList = ({ items, categories, menuListItemClick }) => (
   <div>
     {categories.map(category => (
-      <div key={category}>
+      <div key={category} className="category">
         <h2>{category}</h2>
         <ul>
           {items
