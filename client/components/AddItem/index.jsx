@@ -20,13 +20,14 @@ class AddItem extends React.Component {
 
   render() {
     const { item } = this.props;
+    const { name, price, description } = item;
     return (
       <form>
-        <Nav name={item.name} />
+        <Nav name={name} />
         <div>
-          <Header name={item.name} price={item.price} />
+          <Header name={name} price={price} />
           <section>
-            <p>{item.description}</p>
+            <p>{description}</p>
             <QuantityPicker updateQuantity={this.updateQuantity} />
           </section>
           <section>
@@ -34,7 +35,7 @@ class AddItem extends React.Component {
             <div>Required Choices Placeholder</div>
             <div>Special Instructions Placeholder</div>
           </section>
-          <Footer price={item.price} />
+          <Footer price={price} />
         </div>
       </form>
     );
