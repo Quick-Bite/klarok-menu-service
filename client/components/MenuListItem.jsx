@@ -17,6 +17,7 @@ MenuListItem.propTypes = {
     itemId: PropTypes.number.isRequired,
     restaurantId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     pictureUrl: PropTypes.string.isRequired,
     popular: PropTypes.bool.isRequired,
