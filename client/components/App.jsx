@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import MenuList from './MenuList';
-import AddItem from './AddItem';
+import AddItem from './AddItem/index';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class App extends React.Component {
     const { items, categories, currentItem } = this.state;
     return (
       <div>
-        {currentItem ? <AddItem itemId={currentItem.itemId} /> : null}
+        {currentItem ? <AddItem item={currentItem} /> : null}
         <MenuList
           items={items}
           categories={categories}
