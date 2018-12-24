@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Nav from './Nav';
 import Header from './Header';
 
 const AddItem = ({ item }) => (
   <form>
-    <nav>Nav Placeholder</nav>
+    <Nav name={item.name} />
     <div>
       <Header name={item.name} price={item.price} />
       <section>
