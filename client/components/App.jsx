@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import MenuList from './MenuList';
-import AddItem from './AddItem';
+import AddItem from './AddItem/index';
 
 class App extends React.Component {
   constructor(props) {

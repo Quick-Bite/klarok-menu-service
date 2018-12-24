@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from './Header';
 
 const AddItem = ({ item }) => (
   <form>
     <nav>Nav Placeholder</nav>
     <div>
-      <header>
-        <div>
-          <h3>{item.name}</h3>
-          <h5>{item.price}</h5>
-        </div>
-      </header>
+      <Header name={item.name} price={item.price} />
       <section>
         <p>{item.description}</p>
         <div>Quantity Form Control Placeholder</div>
