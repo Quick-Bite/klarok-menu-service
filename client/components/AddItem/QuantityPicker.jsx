@@ -42,9 +42,22 @@ class QuantityPicker extends React.Component {
       <div>
         <h5>Quantity</h5>
         <div>
-          <button type="button" onClick={this.decrementQuantity} disabled={quantity <= 1}>-</button>
+          <button
+            className="decrement"
+            type="button"
+            onClick={this.decrementQuantity}
+            disabled={quantity <= 1}
+          >
+            -
+          </button>
           <input value={quantity} type="number" onChange={this.handleChange} />
-          <button type="button" onClick={this.incrementQuantity}>+</button>
+          <button
+            className="increment"
+            type="button"
+            onClick={this.incrementQuantity}
+          >
+            +
+          </button>
         </div>
       </div>
     );
