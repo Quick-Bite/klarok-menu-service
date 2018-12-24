@@ -12,7 +12,7 @@ class QuantityPicker extends React.Component {
 
   handleChange(event) {
     const inputElement = event.target;
-    const quantity = Number(inputElement.value);
+    const quantity = Math.trunc(Number(inputElement.value));
     inputElement.value = quantity;
     this.setState({ quantity });
 
