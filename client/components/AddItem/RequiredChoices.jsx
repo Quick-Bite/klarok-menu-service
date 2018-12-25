@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
   <div>
     {choiceCategories.map(({ name: category, choices }) => (
-      <div>
+      <div key={category}>
         <h4>{`Choose a ${category}`}</h4>
         <p>Required - Choose 1.</p>
         {choices.map(({ _id, name, price }) => (
-          <label htmlFor={_id}>
+          <label key={_id} htmlFor={_id}>
             <input
               type="radio"
               name={category}
