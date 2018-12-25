@@ -3,6 +3,41 @@ import { mount } from 'enzyme';
 import AddItem from './index';
 import data from './sampleData/data';
 
+describe('AddItem optional choices', () => {
+  let wrapper;
+  let OptionalChoices;
+  beforeEach(() => {
+    wrapper = mount(<AddItem item={data} />);
+    OptionalChoices = wrapper.find('OptionalChoices');
+  });
+
+  it('does not have a choice in state when choice is not selected', () => {
+    expect(Object.keys(wrapper.state().optionalChoices)).not.toContain('id10');
+  });
+
+  it('adds optional choice to state when selected', () => {
+    // Example choice { _id: 'id10', name: 'parse', price: 14.50 };
+    OptionalChoices.find('#id10').simulate('change', { target: { checked: true } });
+    expect(wrapper.state().optionalChoices.id10).not.toBeUndefined();
+    expect(wrapper.state().optionalChoices.id10.name).toBe('parse');
+    expect(wrapper.state().optionalChoices.id10.price).toBe(14.50);
+  });
+
+  it('adds multiple optional choices', () => {
+    OptionalChoices.find('#id10').simulate('change', { target: { checked: true } });
+    OptionalChoices.find('#id11').simulate('change', { target: { checked: true } });
+    expect(wrapper.state().optionalChoices.id10).not.toBeUndefined();
+    expect(wrapper.state().optionalChoices.id11).not.toBeUndefined();
+  });
+
+  it('removes optional choice if it has been deselected', () => {
+    OptionalChoices.find('#id10').simulate('change', { target: { checked: true } });
+    expect(wrapper.state().optionalChoices.id10).not.toBeUndefined();
+    OptionalChoices.find('#id10').simulate('change', { target: { checked: false } });
+    expect(wrapper.state().optionalChoices.id10).toBeUndefined();
+  });
+});
+
 describe('AddItem total price', () => {
   let wrapper;
   beforeEach(() => {
