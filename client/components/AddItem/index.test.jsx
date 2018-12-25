@@ -38,6 +38,45 @@ describe('AddItem optional choices', () => {
   });
 });
 
+describe('AddItem required choices', () => {
+  let wrapper;
+  let RequiredChoices;
+  let category1;
+  let category2;
+  beforeEach(() => {
+    wrapper = mount(<AddItem item={data} />);
+    RequiredChoices = wrapper.find('RequiredChoices');
+    category1 = 'Manager Rubber help-desk';
+    category2 = 'Global morph unleash';
+  });
+
+  it('defaults the category to null when no choice is selected', () => (
+    expect(wrapper.state().requiredSelections[category1]).toBeNull()
+  ));
+
+  it('sets the category to the selected choice', () => {
+    // Example required choice
+    // { _id: 'id2', name: 'Operative', price: 2.25 }
+    RequiredChoices.find('#id2').simulate('change', { target: { checked: true } });
+    expect(wrapper.state().requiredSelections[category1]).not.toBeNull();
+    expect(wrapper.state().requiredSelections[category1].name).toBe('Operative');
+    expect(wrapper.state().requiredSelections[category1].price).toBe(2.25);
+  });
+
+  it('replaces the selected choice with a new one for a given category', () => {
+    RequiredChoices.find('#id2').simulate('change', { target: { checked: true } });
+    RequiredChoices.find('#id3').simulate('change', { target: { checked: true } });
+    expect(wrapper.state().requiredSelections[category1].name).toBe('experiences Home ivory');
+  });
+
+  it('sets choices for multiple categories', () => {
+    RequiredChoices.find('#id2').simulate('change', { target: { checked: true } });
+    RequiredChoices.find('#id5').simulate('change', { target: { checked: true } });
+    expect(wrapper.state().requiredSelections[category1]).not.toBeNull();
+    expect(wrapper.state().requiredSelections[category2]).not.toBeNull();
+  });
+});
+
 describe('AddItem total price', () => {
   let wrapper;
   beforeEach(() => {
