@@ -8,6 +8,7 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
     {optionalChoices.map(({ _id, name, price }) => (
       <label key={_id} htmlFor={name}>
         <input
+          id={_id}
           type="checkbox"
           name={name}
           onChange={event => updateOptionalChoice(event, _id, name, price)}
