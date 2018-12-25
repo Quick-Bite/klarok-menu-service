@@ -4,6 +4,7 @@ import Nav from './Nav';
 import Header from './Header';
 import QuantityPicker from './QuantityPicker';
 import OptionalChoices from './OptionalChoices';
+import RequiredChoices from './RequiredChoices';
 import Footer from './Footer';
 
 class AddItem extends React.Component {
@@ -41,6 +42,7 @@ class AddItem extends React.Component {
       price,
       description,
       optionalChoices,
+      requiredChoiceCategories,
     } = item;
     return (
       <form>
@@ -59,7 +61,12 @@ class AddItem extends React.Component {
                   choices={optionalChoices}
                   updateChoice={this.updateChoice}
                 />)}
-            <div>Required Choices Placeholder</div>
+            {requiredChoiceCategories.length === 0
+              ? null
+              : (
+                <RequiredChoices
+                  choiceCategories={requiredChoiceCategories}
+                />)}
             <div>Special Instructions Placeholder</div>
           </section>
           <Footer price={price} />
