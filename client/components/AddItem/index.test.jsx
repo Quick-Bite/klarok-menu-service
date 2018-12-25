@@ -6,8 +6,9 @@ import data from './sampleData/data';
 describe('AddItem optional choices', () => {
   let wrapper;
   let OptionalChoices;
+  const close = () => {};
   beforeEach(() => {
-    wrapper = mount(<AddItem item={data} />);
+    wrapper = mount(<AddItem item={data} close={close} />);
     OptionalChoices = wrapper.find('OptionalChoices');
   });
 
@@ -43,8 +44,9 @@ describe('AddItem required choices', () => {
   let RequiredChoices;
   let category1;
   let category2;
+  const close = () => {};
   beforeEach(() => {
-    wrapper = mount(<AddItem item={data} />);
+    wrapper = mount(<AddItem item={data} close={close}/>);
     RequiredChoices = wrapper.find('RequiredChoices');
     category1 = 'Manager Rubber help-desk';
     category2 = 'Global morph unleash';
@@ -79,8 +81,9 @@ describe('AddItem required choices', () => {
 
 describe('AddItem total price', () => {
   let wrapper;
+  const close = () => {};
   beforeEach(() => {
-    wrapper = mount(<AddItem item={data} />);
+    wrapper = mount(<AddItem item={data} close={close} />);
   });
 
   it('equals base price by default', () => {
