@@ -20,10 +20,10 @@ class AddItem extends React.Component {
     this.state = {
       requiredSelections,
       quantity: 1,
-      choices: {},
+      optionalChoices: {},
     };
     this.updateQuantity = this.updateQuantity.bind(this);
-    this.updateChoice = this.updateChoice.bind(this);
+    this.updateOptionalChoice = this.updateOptionalChoice.bind(this);
     this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
   }
 
@@ -31,16 +31,16 @@ class AddItem extends React.Component {
     this.setState({ quantity });
   }
 
-  updateChoice(event, _id, name, price) {
+  updateOptionalChoice(event, _id, name, price) {
     const { checked } = event.target;
-    const { choices } = this.state;
-    const choicesCopy = Object.assign({}, choices);
+    const { optionalChoices } = this.state;
+    const choicesCopy = Object.assign({}, optionalChoices);
     if (checked) {
       choicesCopy[_id] = { name, price };
-      this.setState({ choices: choicesCopy });
+      this.setState({ optionalChoices: choicesCopy });
     } else {
       delete choicesCopy[_id];
-      this.setState({ choices: choicesCopy });
+      this.setState({ optionalChoices: choicesCopy });
     }
   }
 
@@ -77,8 +77,8 @@ class AddItem extends React.Component {
               ? null
               : (
                 <OptionalChoices
-                  choices={optionalChoices}
-                  updateChoice={this.updateChoice}
+                  optionalChoices={optionalChoices}
+                  updateOptionalChoice={this.updateOptionalChoice}
                 />)}
             {requiredChoiceCategories.length === 0
               ? null
