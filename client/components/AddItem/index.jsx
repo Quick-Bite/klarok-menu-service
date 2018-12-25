@@ -4,17 +4,27 @@ import Nav from './Nav';
 import Header from './Header';
 import QuantityPicker from './QuantityPicker';
 import OptionalChoices from './OptionalChoices';
+import RequiredChoices from './RequiredChoices';
 import Footer from './Footer';
 
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
+    const { item: { requiredChoiceCategories } } = props;
+    const requiredSelections = requiredChoiceCategories.reduce(
+      (selections, { name }) => {
+        selections[name] = null;
+        return selections;
+      }, {},
+    );
     this.state = {
+      requiredSelections,
       quantity: 1,
       choices: {},
     };
     this.updateQuantity = this.updateQuantity.bind(this);
     this.updateChoice = this.updateChoice.bind(this);
+    this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
   }
 
   updateQuantity(quantity) {
@@ -34,6 +44,16 @@ class AddItem extends React.Component {
     }
   }
 
+  updateRequiredChoice(category, _id, name, price) {
+    const choice = { _id, name, price };
+    const { requiredSelections } = this.state;
+    const selections = Object.assign({}, requiredSelections);
+    selections[category] = choice;
+    this.setState({
+      requiredSelections: selections,
+    });
+  }
+
   render() {
     const { item } = this.props;
     const {
@@ -41,6 +61,7 @@ class AddItem extends React.Component {
       price,
       description,
       optionalChoices,
+      requiredChoiceCategories,
     } = item;
     return (
       <form>
@@ -59,7 +80,13 @@ class AddItem extends React.Component {
                   choices={optionalChoices}
                   updateChoice={this.updateChoice}
                 />)}
-            <div>Required Choices Placeholder</div>
+            {requiredChoiceCategories.length === 0
+              ? null
+              : (
+                <RequiredChoices
+                  choiceCategories={requiredChoiceCategories}
+                  updateRequiredChoice={this.updateRequiredChoice}
+                />)}
             <div>Special Instructions Placeholder</div>
           </section>
           <Footer price={price} />
