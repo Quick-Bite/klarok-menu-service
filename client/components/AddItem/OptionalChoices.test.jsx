@@ -23,7 +23,7 @@ describe('OptionalChoices', () => {
     ];
     const updateChoice = () => {};
     const wrapper = shallow(
-      <OptionalChoices choices={choices} updateChoice={updateChoice} />,
+      <OptionalChoices optionalChoices={choices} updateOptionalChoice={updateChoice} />,
     );
     expect(wrapper.find('input')).toHaveLength(3);
   });
