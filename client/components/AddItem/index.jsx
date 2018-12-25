@@ -10,12 +10,21 @@ import Footer from './Footer';
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
+    const { item: { requiredChoiceCategories } } = props;
+    const requiredSelections = requiredChoiceCategories.reduce(
+      (selections, { name }) => {
+        selections[name] = null;
+        return selections;
+      }, {},
+    );
     this.state = {
+      requiredSelections,
       quantity: 1,
       choices: {},
     };
     this.updateQuantity = this.updateQuantity.bind(this);
     this.updateChoice = this.updateChoice.bind(this);
+    this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
   }
 
   updateQuantity(quantity) {
@@ -33,6 +42,16 @@ class AddItem extends React.Component {
       delete choicesCopy[_id];
       this.setState({ choices: choicesCopy });
     }
+  }
+
+  updateRequiredChoice(category, _id, name, price) {
+    const choice = { _id, name, price };
+    const { requiredSelections } = this.state;
+    const selections = Object.assign({}, requiredSelections);
+    selections[category] = choice;
+    this.setState({
+      requiredSelections: selections,
+    });
   }
 
   render() {
@@ -66,6 +85,7 @@ class AddItem extends React.Component {
               : (
                 <RequiredChoices
                   choiceCategories={requiredChoiceCategories}
+                  updateRequiredChoice={this.updateRequiredChoice}
                 />)}
             <div>Special Instructions Placeholder</div>
           </section>

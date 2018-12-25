@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const RequiredChoices = ({ choiceCategories }) => (
+const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
   <div>
     {choiceCategories.map(({ name: category, choices }) => (
       <div>
@@ -9,7 +9,12 @@ const RequiredChoices = ({ choiceCategories }) => (
         <p>Required - Choose 1.</p>
         {choices.map(({ _id, name, price }) => (
           <label htmlFor={_id}>
-            <input type="radio" name={category} id={_id} />
+            <input
+              type="radio"
+              name={category}
+              id={_id}
+              onChange={() => updateRequiredChoice(category, _id, name, price)}
+            />
             <span>{`${name} + $${price.toFixed(2)}`}</span>
           </label>
         ))}
@@ -27,6 +32,7 @@ RequiredChoices.propTypes = {
       price: PropTypes.number.isRequired,
     }).isRequired).isRequired,
   }).isRequired).isRequired,
+  updateRequiredChoice: PropTypes.func.isRequired,
 };
 
 export default RequiredChoices;
