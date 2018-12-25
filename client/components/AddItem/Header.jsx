@@ -6,7 +6,7 @@ const Header = ({ name, price, close }) => (
     <div>
       <button type="button" onClick={close}>Close</button>
       <h3>{name}</h3>
-      <h5>{price}</h5>
+      <h5>{`$${price.toFixed(2)}`}</h5>
     </div>
   </header>
 );
