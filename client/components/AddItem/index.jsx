@@ -70,7 +70,7 @@ class AddItem extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, close } = this.props;
     const {
       name,
       description,
@@ -80,9 +80,9 @@ class AddItem extends React.Component {
     const { totalPrice } = this.state;
     return (
       <form>
-        <Nav name={name} />
+        <Nav name={name} close={close} />
         <div>
-          <Header name={name} price={totalPrice} />
+          <Header name={name} price={totalPrice} close={close} />
           <section>
             <p>{description}</p>
             <QuantityPicker updateQuantity={this.updateQuantity} />
@@ -124,6 +124,7 @@ AddItem.propTypes = {
     requiredChoiceCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
     optionalChoices: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 export default AddItem;

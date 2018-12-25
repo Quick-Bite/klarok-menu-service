@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ name, price }) => (
+const Header = ({ name, price, close }) => (
   <header>
     <div>
-      <button type="button">Close</button>
+      <button type="button" onClick={close}>Close</button>
       <h3>{name}</h3>
       <h5>{price}</h5>
     </div>
@@ -14,6 +14,7 @@ const Header = ({ name, price }) => (
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 export default Header;
