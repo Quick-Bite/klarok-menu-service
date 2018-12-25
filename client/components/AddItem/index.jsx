@@ -63,7 +63,7 @@ class AddItem extends React.Component {
       .reduce((sum, choice) => sum + choice.price, 0);
     const requiredSelectionsTotal = Object
       .values(requiredSelections)
-      .reduce((sum, selection) => (selection === null ? 0 : sum + selection.price), 0);
+      .reduce((sum, selection) => (selection === null ? sum : sum + selection.price), 0);
     this.setState({
       totalPrice: quantity * (basePrice + optionalChoicesTotal + requiredSelectionsTotal),
     });

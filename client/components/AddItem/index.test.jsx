@@ -110,7 +110,7 @@ describe('AddItem total price', () => {
     // Select optional choice 'Interactions grid-enabled Clothing' with price $18.65
     RequiredChoices.find('#id7').simulate('change', { target: { checked: true } });
     // Need setTimeout because it takes a while for setState to finish in this case
-    setTimeout(() => expect(wrapper.state().totalPrice).toBeCloseTo(40.90), 100);
+    expect(wrapper.state().totalPrice).toBeCloseTo(40.90);
   });
 
   it('applies quantity multiplier after adding choice prices', () => {
@@ -121,10 +121,7 @@ describe('AddItem total price', () => {
     OptionalChoices.find('#id10').simulate('change', { target: { checked: true } });
     // Select required choice 'Operative' with price $2.25
     RequiredChoices.find('#id2').simulate('change', { target: { checked: true } });
-    setTimeout(() => {
-      // Set quantity to 2
-      QuantityPicker.find('.increment').simulate('click');
-      expect(wrapper.state().totalPrice).toBeCloseTo(73.50);
-    }, 100);
+    QuantityPicker.find('.increment').simulate('click');
+    expect(wrapper.state().totalPrice).toBeCloseTo(73.50);
   });
 });
