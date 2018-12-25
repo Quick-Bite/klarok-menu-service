@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
+const OptionalChoices = ({ choices, updateChoice }) => (
   <div>
     <h4>Would you like extras?</h4>
     <p>Optional - Choose as many as you like.</p>
-    {optionalChoices.map(({ _id, name, price }) => (
+    {choices.map(({ _id, name, price }) => (
       <label key={_id} htmlFor={name}>
         <input
           type="checkbox"
           name={name}
-          onChange={event => updateOptionalChoice(event, _id, name, price)}
+          onChange={event => updateChoice(event, _id, name, price)}
         />
         <span>{`Add ${name} + $${price.toFixed(2)}`}</span>
       </label>
@@ -19,12 +19,12 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
 );
 
 OptionalChoices.propTypes = {
-  optionalChoices: PropTypes.arrayOf(PropTypes.shape({
+  choices: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   })).isRequired,
-  updateOptionalChoice: PropTypes.func.isRequired,
+  updateChoice: PropTypes.func.isRequired,
 };
 
 export default OptionalChoices;
