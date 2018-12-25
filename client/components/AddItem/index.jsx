@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Nav from './Nav';
 import Header from './Header';
 import QuantityPicker from './QuantityPicker';
+import OptionalChoices from './OptionalChoices';
 import Footer from './Footer';
 
 class AddItem extends React.Component {
@@ -10,31 +11,58 @@ class AddItem extends React.Component {
     super(props);
     this.state = {
       quantity: 1,
+      choices: {},
     };
     this.updateQuantity = this.updateQuantity.bind(this);
+    this.updateChoice = this.updateChoice.bind(this);
   }
 
   updateQuantity(quantity) {
     this.setState({ quantity });
   }
 
+  updateChoice(event, _id, name, price) {
+    const { checked } = event.target;
+    const { choices } = this.state;
+    const choicesCopy = Object.assign({}, choices);
+    if (checked) {
+      choicesCopy[_id] = { name, price };
+      this.setState({ choices: choicesCopy });
+    } else {
+      delete choicesCopy[_id];
+      this.setState({ choices: choicesCopy });
+    }
+  }
+
   render() {
     const { item } = this.props;
+    const {
+      name,
+      price,
+      description,
+      optionalChoices,
+    } = item;
     return (
       <form>
-        <Nav name={item.name} />
+        <Nav name={name} />
         <div>
-          <Header name={item.name} price={item.price} />
+          <Header name={name} price={price} />
           <section>
-            <p>{item.description}</p>
+            <p>{description}</p>
             <QuantityPicker updateQuantity={this.updateQuantity} />
           </section>
           <section>
-            <div>Optional Choices Placeholder</div>
+            {optionalChoices.length === 0
+              ? null
+              : (
+                <OptionalChoices
+                  choices={optionalChoices}
+                  updateChoice={this.updateChoice}
+                />)}
             <div>Required Choices Placeholder</div>
             <div>Special Instructions Placeholder</div>
           </section>
-          <Footer price={item.price} />
+          <Footer price={price} />
         </div>
       </form>
     );
