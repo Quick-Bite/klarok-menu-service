@@ -17,8 +17,10 @@ class AddItem extends React.Component {
         return selections;
       }, {},
     );
+    const readyToOrder = Object.keys(requiredSelections).length === 0;
     this.state = {
       requiredSelections,
+      readyToOrder,
       quantity: 1,
       optionalChoices: {},
       basePrice: price,
@@ -30,7 +32,10 @@ class AddItem extends React.Component {
   }
 
   updateQuantity(quantity) {
-    this.setState({ quantity }, this.updateTotalPrice);
+    this.setState({ quantity }, () => {
+      this.updateTotalPrice();
+      this.updateReadyToOrder();
+    });
   }
 
   updateOptionalChoice(event, _id, name, price) {
@@ -51,7 +56,10 @@ class AddItem extends React.Component {
     const { requiredSelections } = this.state;
     const selections = Object.assign({}, requiredSelections);
     selections[category] = choice;
-    this.setState({ requiredSelections: selections }, this.updateTotalPrice);
+    this.setState({ requiredSelections: selections }, () => {
+      this.updateTotalPrice();
+      this.updateReadyToOrder();
+    });
   }
 
   updateTotalPrice() {
@@ -69,6 +77,16 @@ class AddItem extends React.Component {
     });
   }
 
+  updateReadyToOrder() {
+    const { quantity, requiredSelections } = this.state;
+    const atLeastOneItem = quantity > 0;
+    const hasAllRequiredSelections = Object
+      .values(requiredSelections)
+      .every(selection => selection !== null);
+    const readyToOrder = atLeastOneItem && hasAllRequiredSelections;
+    this.setState({ readyToOrder });
+  }
+
   render() {
     const { item, close } = this.props;
     const {
@@ -77,7 +95,7 @@ class AddItem extends React.Component {
       optionalChoices,
       requiredChoiceCategories,
     } = item;
-    const { totalPrice } = this.state;
+    const { totalPrice, readyToOrder } = this.state;
     return (
       <form>
         <Nav name={name} close={close} />
@@ -104,7 +122,7 @@ class AddItem extends React.Component {
                 />)}
             <div>Special Instructions Placeholder</div>
           </section>
-          <Footer price={totalPrice} />
+          <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
         </div>
       </form>
     );
