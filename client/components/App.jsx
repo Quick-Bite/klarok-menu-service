@@ -1,7 +1,19 @@
 import React from 'react';
 import axios from 'axios';
+import styled, { createGlobalStyle } from 'styled-components';
 import MenuList from './MenuList';
 import AddItem from './AddItem/index';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+`;
+
+const Container = styled.div`
+  background-color: #EFEFEF;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -41,14 +53,15 @@ class App extends React.Component {
   render() {
     const { items, categories, currentItem } = this.state;
     return (
-      <div>
+      <Container>
+        <GlobalStyle />
         {currentItem ? <AddItem item={currentItem} close={this.close} /> : null}
         <MenuList
           items={items}
           categories={categories}
           menuListItemClick={this.menuListItemClick}
         />
-      </div>
+      </Container>
     );
   }
 }

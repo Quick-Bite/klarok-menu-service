@@ -3,10 +3,24 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MenuListItem from './MenuListItem';
 
+const Outer = styled.section`
+  margin: 0 8px;
+`;
+
+const CategoryHeader = styled.h2`
+  font-size: 23px;
+  margin-top: 30px;
+  margin-bottom: 0;
+  padding: 8px 0px;
+`;
+
 const ListContainer = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
   list-style-type: none;
+  margin: 0 0;
+  padding: 0;
 
   @media screen and (max-width: 768px){
     grid-template-columns: 1fr;
@@ -14,10 +28,10 @@ const ListContainer = styled.ul`
 `;
 
 const MenuList = ({ items, categories, menuListItemClick }) => (
-  <div>
+  <Outer>
     {categories.map(category => (
       <div key={category} className="category">
-        <h2>{category}</h2>
+        <CategoryHeader>{category}</CategoryHeader>
         <ListContainer>
           {items
             .filter(item => item.category === category)
@@ -29,7 +43,7 @@ const MenuList = ({ items, categories, menuListItemClick }) => (
         </ListContainer>
       </div>
     ))}
-  </div>
+  </Outer>
 );
 
 MenuList.propTypes = {
