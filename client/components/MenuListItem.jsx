@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Award, Fire } from 'styled-icons/fa-solid';
 
 const Container = styled.div`
   display: flex;
-  margin: 2px auto;
   font-size: 1rem;
   background-color: white;
   max-height: 130px;
   border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    outline: solid rgba(0, 0, 0, 0.2) 1px;
+  }
 `;
 
 const Image = styled.img`
@@ -20,33 +26,65 @@ const Image = styled.img`
   }
 `;
 
-const Body = styled.div`
-  overflow: hidden;
+const Main = styled.div`
   padding: 8px 12px;
 `;
 
-const Name = styled.h3`
+const Header = styled.div`
+  display: flex;
+  margin-bottom: 4px;
+`;
+
+const Name = styled.h6`
+  color: rgb(0, 111, 233);
   font-size: 15px;
   margin: 0;
+  margin-right: 8px;
+  &:hover {
+    color: #004FBF;
+  }
+`;
+
+const Popular = styled(Award)`
+  color: #FFAD00;
 `;
 
 const Description = styled.p`
+  color: rgba(0, 0, 0, 0.55);
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
+  height: 57px;
   margin: 0;
   margin-bottom: 8px;
+  overflow: hidden;
+`;
+
+const Price = styled.span`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 2px 5px;
+`;
+
+const Spicy = styled(Fire)`
+  color: #FF4D00;
 `;
 
 const MenuListItem = ({ item, menuListItemClick }) => (
   <Container onClick={() => menuListItemClick(item.itemId)}>
-    <Body>
-      <Name>{item.name}</Name>
+    <Main>
+      <Header>
+        <Name>{item.name}</Name>
+        <span>{item.popular ? <Popular size="12" /> : null}</span>
+      </Header>
       <Description>{item.description}</Description>
-      <p>{item.price}</p>
-      {item.popular ? <p>Popular</p> : null}
-      {item.spicy ? <p>Spicy</p> : null}
-    </Body>
+      <div>{item.spicy ? <Spicy size="12" /> : null}</div>
+    </Main>
     <Image src={item.pictureUrl} alt="menu item" />
+    <Price>{`$${item.price.toFixed(2)}+`}</Price>
   </Container>
 );
 
