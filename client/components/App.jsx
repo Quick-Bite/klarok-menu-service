@@ -12,6 +12,7 @@ class App extends React.Component {
       currentItem: null,
     };
     this.menuListItemClick = this.menuListItemClick.bind(this);
+    this.close = this.close.bind(this);
   }
 
   componentDidMount() {
@@ -33,11 +34,15 @@ class App extends React.Component {
       });
   }
 
+  close() {
+    this.setState({ currentItem: null });
+  }
+
   render() {
     const { items, categories, currentItem } = this.state;
     return (
       <div>
-        {currentItem ? <AddItem item={currentItem} /> : null}
+        {currentItem ? <AddItem item={currentItem} close={this.close} /> : null}
         <MenuList
           items={items}
           categories={categories}
