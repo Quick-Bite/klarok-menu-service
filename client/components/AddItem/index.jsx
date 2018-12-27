@@ -1,3 +1,4 @@
+/* eslint react/self-closing-comp: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Nav from './Nav';
@@ -25,10 +26,12 @@ class AddItem extends React.Component {
       optionalChoices: {},
       basePrice: price,
       totalPrice: price,
+      specialInstructions: '',
     };
     this.updateQuantity = this.updateQuantity.bind(this);
     this.updateOptionalChoice = this.updateOptionalChoice.bind(this);
     this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
+    this.updateSpecialInstructions = this.updateSpecialInstructions.bind(this);
   }
 
   updateQuantity(quantity) {
@@ -87,6 +90,10 @@ class AddItem extends React.Component {
     this.setState({ readyToOrder });
   }
 
+  updateSpecialInstructions(event) {
+    this.setState({ specialInstructions: event.target.value });
+  }
+
   render() {
     const { item, close } = this.props;
     const {
@@ -120,7 +127,14 @@ class AddItem extends React.Component {
                   choiceCategories={requiredChoiceCategories}
                   updateRequiredChoice={this.updateRequiredChoice}
                 />)}
-            <div>Special Instructions Placeholder</div>
+            <div>
+              <h5>Special instructions</h5>
+              <textarea
+                placeholder="Dressing on the side? No pickles? Let us know here."
+                onChange={this.updateSpecialInstructions}
+              >
+              </textarea>
+            </div>
           </section>
           <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
         </div>
