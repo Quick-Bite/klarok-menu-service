@@ -1,7 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import MenuList from './MenuList';
-import MenuListItem from './MenuListItem';
+
+jest.mock('styled-icons/fa-solid', () => ({
+  Award: 'Award',
+  Fire: 'Fire',
+}));
 
 describe('MenuList', () => {
   let items;
@@ -55,7 +59,7 @@ describe('MenuList', () => {
         menuListItemClick={menuListItemClick}
       />,
     );
-    expect(wrapper.find(MenuListItem)).toHaveLength(3);
+    expect(wrapper.find('MenuListItem')).toHaveLength(3);
   });
 
   it('renders the items in separate lists by category', () => {
@@ -70,7 +74,7 @@ describe('MenuList', () => {
     expect(categoryWrappers).toHaveLength(2);
     categoryWrappers.forEach((categoryWrapper, index) => {
       const numChildren = index === 0 ? 2 : 1;
-      expect(categoryWrapper.find(MenuListItem)).toHaveLength(numChildren);
+      expect(categoryWrapper.find('MenuListItem')).toHaveLength(numChildren);
     });
   });
 });

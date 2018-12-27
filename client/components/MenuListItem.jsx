@@ -77,10 +77,10 @@ const MenuListItem = ({ item, menuListItemClick }) => (
   <Container onClick={() => menuListItemClick(item.itemId)}>
     <Main>
       <Header>
-        <Name>{item.name}</Name>
-        <span>{item.popular ? <Popular size="12" /> : null}</span>
+        <Name id="Name">{item.name}</Name>
+        <span>{item.popular ? <Popular id="Popular" size="12" /> : null}</span>
       </Header>
-      <Description>{item.description}</Description>
+      <Description id="Description">{item.description}</Description>
       <div>{item.spicy ? <Spicy size="12" /> : null}</div>
     </Main>
     <Image src={item.pictureUrl} alt="menu item" />
