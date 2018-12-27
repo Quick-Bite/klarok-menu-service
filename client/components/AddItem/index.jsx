@@ -1,4 +1,4 @@
-/* eslint react/self-closing-comp: 0 */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import Header from './Header';
 import QuantityPicker from './QuantityPicker';
 import OptionalChoices from './OptionalChoices';
 import RequiredChoices from './RequiredChoices';
+import SpecialInstructions from './SpecialInstructions';
 import Footer from './Footer';
 
 const ModalOutside = styled.div`
@@ -155,14 +156,7 @@ class AddItem extends React.Component {
             <section>
               {optionalChoicesComponent}
               {requiredChoicesComponent}
-              <div>
-                <h5>Special instructions</h5>
-                <textarea
-                  placeholder="Dressing on the side? No pickles? Let us know here."
-                  onChange={this.updateSpecialInstructions}
-                >
-                </textarea>
-              </div>
+              <SpecialInstructions handleChange={this.updateSpecialInstructions} />
             </section>
             <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
           </ModalBody>
