@@ -128,3 +128,19 @@ describe('AddItem total price', () => {
     expect(wrapper.state().totalPrice).toBeCloseTo(73.50);
   });
 });
+
+describe('AddItem special instructions', () => {
+  let wrapper;
+  const close = () => {};
+  beforeEach(() => {
+    wrapper = mount(<AddItem item={data} close={close} />);
+  });
+
+  it('saves special instructions text that the user inputs', () => {
+    const instructions = 'Please add steamed hams';
+    const SpecialInstructions = wrapper.find('SpecialInstructions');
+    SpecialInstructions.find('textarea').simulate('change',
+      { target: { value: instructions } });
+    expect(wrapper.state().specialInstructions).toBe(instructions);
+  });
+});
