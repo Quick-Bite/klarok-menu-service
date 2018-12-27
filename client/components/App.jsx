@@ -8,11 +8,15 @@ const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    /* Prevent scrolling while modal is active */
+    overflow: ${props => (props.currentItem ? 'hidden' : 'auto')};
   }
 `;
 
 const Container = styled.div`
   background-color: #EFEFEF;
+  
 `;
 
 class App extends React.Component {
@@ -54,7 +58,7 @@ class App extends React.Component {
     const { items, categories, currentItem } = this.state;
     return (
       <Container>
-        <GlobalStyle />
+        <GlobalStyle currentItem={currentItem} />
         {currentItem ? <AddItem item={currentItem} close={this.close} /> : null}
         <MenuList
           items={items}

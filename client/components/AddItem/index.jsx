@@ -1,12 +1,38 @@
-/* eslint react/self-closing-comp: 0 */
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Nav from './Nav';
 import Header from './Header';
 import QuantityPicker from './QuantityPicker';
 import OptionalChoices from './OptionalChoices';
 import RequiredChoices from './RequiredChoices';
+import SpecialInstructions from './SpecialInstructions';
 import Footer from './Footer';
+
+const ModalOutside = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+`;
+
+const ModalMain = styled.form`
+  background-color: white;
+  max-width: 768px;
+  max-height: 90%;
+  overflow: scroll;
+`;
+
+const ModalBody = styled.div`
+  padding: 0 32px;
+`;
 
 class AddItem extends React.Component {
   constructor(props) {
@@ -103,42 +129,39 @@ class AddItem extends React.Component {
       requiredChoiceCategories,
     } = item;
     const { totalPrice, readyToOrder } = this.state;
+    const optionalChoicesComponent = (optionalChoices.length === 0)
+      ? null
+      : (
+        <OptionalChoices
+          optionalChoices={optionalChoices}
+          updateOptionalChoice={this.updateOptionalChoice}
+        />);
+    const requiredChoicesComponent = (requiredChoiceCategories.length === 0)
+      ? null
+      : (
+        <RequiredChoices
+          choiceCategories={requiredChoiceCategories}
+          updateRequiredChoice={this.updateRequiredChoice}
+        />);
     return (
-      <form>
-        <Nav name={name} close={close} />
-        <div>
+      <ModalOutside onClick={event => (event.target === event.currentTarget ? close() : null)}>
+        <ModalMain>
+          <Nav name={name} close={close} />
           <Header name={name} price={totalPrice} close={close} />
-          <section>
-            <p>{description}</p>
-            <QuantityPicker updateQuantity={this.updateQuantity} />
-          </section>
-          <section>
-            {optionalChoices.length === 0
-              ? null
-              : (
-                <OptionalChoices
-                  optionalChoices={optionalChoices}
-                  updateOptionalChoice={this.updateOptionalChoice}
-                />)}
-            {requiredChoiceCategories.length === 0
-              ? null
-              : (
-                <RequiredChoices
-                  choiceCategories={requiredChoiceCategories}
-                  updateRequiredChoice={this.updateRequiredChoice}
-                />)}
-            <div>
-              <h5>Special instructions</h5>
-              <textarea
-                placeholder="Dressing on the side? No pickles? Let us know here."
-                onChange={this.updateSpecialInstructions}
-              >
-              </textarea>
-            </div>
-          </section>
-          <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
-        </div>
-      </form>
+          <ModalBody>
+            <section>
+              <p>{description}</p>
+              <QuantityPicker updateQuantity={this.updateQuantity} />
+            </section>
+            <section>
+              {optionalChoicesComponent}
+              {requiredChoicesComponent}
+              <SpecialInstructions handleChange={this.updateSpecialInstructions} />
+            </section>
+            <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
+          </ModalBody>
+        </ModalMain>
+      </ModalOutside>
     );
   }
 }
