@@ -26,7 +26,6 @@ describe('MenuListItem', () => {
 
   it('renders the name of the item', () => {
     const wrapper = shallow(<MenuListItem item={item} menuListItemClick={menuListItemClick} />);
-    // expect(wrapper.contains(<h3>Bacon pancakes</h3>)).toBe(true);
     expect(wrapper.find('#Name').text()).toBe('Bacon pancakes');
   });
 
