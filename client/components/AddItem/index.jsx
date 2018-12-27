@@ -128,6 +128,20 @@ class AddItem extends React.Component {
       requiredChoiceCategories,
     } = item;
     const { totalPrice, readyToOrder } = this.state;
+    const optionalChoicesComponent = (optionalChoices.length === 0)
+      ? null
+      : (
+        <OptionalChoices
+          optionalChoices={optionalChoices}
+          updateOptionalChoice={this.updateOptionalChoice}
+        />);
+    const requiredChoicesComponent = (requiredChoiceCategories.length === 0)
+      ? null
+      : (
+        <RequiredChoices
+          choiceCategories={requiredChoiceCategories}
+          updateRequiredChoice={this.updateRequiredChoice}
+        />);
     return (
       <ModalOutside onClick={event => (event.target === event.currentTarget ? close() : null)}>
         <ModalMain>
@@ -139,20 +153,8 @@ class AddItem extends React.Component {
               <QuantityPicker updateQuantity={this.updateQuantity} />
             </section>
             <section>
-              {optionalChoices.length === 0
-                ? null
-                : (
-                  <OptionalChoices
-                    optionalChoices={optionalChoices}
-                    updateOptionalChoice={this.updateOptionalChoice}
-                  />)}
-              {requiredChoiceCategories.length === 0
-                ? null
-                : (
-                  <RequiredChoices
-                    choiceCategories={requiredChoiceCategories}
-                    updateRequiredChoice={this.updateRequiredChoice}
-                  />)}
+              {optionalChoicesComponent}
+              {requiredChoicesComponent}
               <div>
                 <h5>Special instructions</h5>
                 <textarea
