@@ -17,7 +17,7 @@ const slideDown = keyframes`
     visibility: visible;
   }
 
-  to: {
+  to {
     transform: translateY(0);
   }
 `;
