@@ -27,7 +27,8 @@ const ModalMain = styled.form`
   background-color: white;
   max-width: 768px;
   max-height: 90%;
-  overflow: scroll;
+  overflow-y: scroll;
+  position: relative;
 `;
 
 const ModalBody = styled.div`
@@ -53,11 +54,13 @@ class AddItem extends React.Component {
       basePrice: price,
       totalPrice: price,
       specialInstructions: '',
+      scrollTop: 0,
     };
     this.updateQuantity = this.updateQuantity.bind(this);
     this.updateOptionalChoice = this.updateOptionalChoice.bind(this);
     this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
     this.updateSpecialInstructions = this.updateSpecialInstructions.bind(this);
+    this.updateScroll = this.updateScroll.bind(this);
   }
 
   updateQuantity(quantity) {
@@ -120,6 +123,10 @@ class AddItem extends React.Component {
     this.setState({ specialInstructions: event.target.value });
   }
 
+  updateScroll(event) {
+    this.setState({ scrollTop: event.target.scrollTop });
+  }
+
   render() {
     const { item, close } = this.props;
     const {
@@ -128,7 +135,7 @@ class AddItem extends React.Component {
       optionalChoices,
       requiredChoiceCategories,
     } = item;
-    const { totalPrice, readyToOrder } = this.state;
+    const { totalPrice, readyToOrder, scrollTop } = this.state;
     const optionalChoicesComponent = (optionalChoices.length === 0)
       ? null
       : (
@@ -145,8 +152,8 @@ class AddItem extends React.Component {
         />);
     return (
       <ModalOutside onClick={event => (event.target === event.currentTarget ? close() : null)}>
-        <ModalMain>
-          <Nav name={name} close={close} />
+        <ModalMain onScroll={this.updateScroll}>
+          <Nav name={name} close={close} scrollTop={scrollTop} />
           <Header name={name} price={totalPrice} close={close} />
           <ModalBody>
             <section>
