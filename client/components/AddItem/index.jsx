@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -55,7 +54,10 @@ class AddItem extends React.Component {
       totalPrice: price,
       specialInstructions: '',
       scrollTop: 0,
+      navNeverShown: true,
     };
+    this.SHOW_NAV_Y = 50;
+    
     this.updateQuantity = this.updateQuantity.bind(this);
     this.updateOptionalChoice = this.updateOptionalChoice.bind(this);
     this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
@@ -124,7 +126,11 @@ class AddItem extends React.Component {
   }
 
   updateScroll(event) {
+    const { navNeverShown, scrollTop } = this.state;
     this.setState({ scrollTop: event.target.scrollTop });
+    if (navNeverShown && scrollTop > this.SHOW_NAV_Y) {
+      this.setState({ navNeverShown: false });
+    }
   }
 
   render() {
@@ -135,7 +141,9 @@ class AddItem extends React.Component {
       optionalChoices,
       requiredChoiceCategories,
     } = item;
-    const { totalPrice, readyToOrder, scrollTop } = this.state;
+    const {
+      totalPrice, readyToOrder, scrollTop, navNeverShown,
+    } = this.state;
     const optionalChoicesComponent = (optionalChoices.length === 0)
       ? null
       : (
@@ -150,10 +158,13 @@ class AddItem extends React.Component {
           choiceCategories={requiredChoiceCategories}
           updateRequiredChoice={this.updateRequiredChoice}
         />);
+    const nav = (navNeverShown)
+      ? null
+      : <Nav name={name} close={close} scrollTop={scrollTop} SHOW_Y={this.SHOW_NAV_Y} />;
     return (
       <ModalOutside onClick={event => (event.target === event.currentTarget ? close() : null)}>
         <ModalMain onScroll={this.updateScroll}>
-          <Nav name={name} close={close} scrollTop={scrollTop} />
+          {nav}
           <Header name={name} price={totalPrice} close={close} />
           <ModalBody>
             <section>
