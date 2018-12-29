@@ -50,6 +50,7 @@ const Slider = styled.nav`
   justify-content: center;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   animation: ${slide} 300ms forwards;
+  z-index: 2;
 `;
 
 const CloseButton = styled.button`
