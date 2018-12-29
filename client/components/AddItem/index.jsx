@@ -25,9 +25,10 @@ const ModalOutside = styled.div`
 const ModalMain = styled.form`
   background-color: white;
   max-width: 768px;
-  max-height: 90%;
+  max-height: 92%;
   overflow-y: scroll;
   position: relative;
+  border-radius: 5px;
 `;
 
 const ModalBody = styled.div`
