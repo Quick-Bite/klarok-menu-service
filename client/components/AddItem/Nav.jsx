@@ -15,6 +15,7 @@ const slideDown = keyframes`
   from {
     transform: translateY(-100%);
     visibility: visible;
+    position: sticky;
   }
 
   to {
@@ -30,6 +31,7 @@ const slideUp = keyframes`
   to {
     transform: translateY(-100%);
     visibility: hidden;
+    position: absolute;
   }
 `;
 
