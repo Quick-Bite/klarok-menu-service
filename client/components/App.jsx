@@ -7,7 +7,9 @@ import AddItem from './AddItem/index';
 const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    @import url('https://fonts.googleapis.com/css?family=Muli:400,900');
+    font-family: 'Muli', sans-serif;
+    font-weight: 'Black';
 
     /* Prevent scrolling while modal is active */
     overflow: ${props => (props.currentItem ? 'hidden' : 'auto')};

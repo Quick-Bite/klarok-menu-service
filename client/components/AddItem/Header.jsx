@@ -16,7 +16,6 @@ const NamePriceBox = styled.div`
   left: 20px;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
-  font-weight: bold;
   border-radius: 5px;
 `;
 
