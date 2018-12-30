@@ -22,7 +22,6 @@ const ChoicesWrapper = styled.div`
 
 const CheckboxWrapper = styled.div`
   display: flex;
-  justify-content: center;
 `;
 
 const Checkbox = styled.div`
@@ -30,7 +29,8 @@ const Checkbox = styled.div`
   justify-content: center;
   align-items: center;
   height: 20px;
-  width: 20px;
+  min-width: 20px;
+  margin-right: 10px;
   border: 2px solid;
   border-radius: 2px;
   border-color: rgba(0, 0, 0, 0.2);
@@ -43,19 +43,25 @@ const SvgWrapper = styled.div`
   height: 12px;
   display: flex;
   justify-content: center;
-  align-items: center;
   visibility: hidden;
+`;
+
+const Label = styled.label`
+  display: flex;
+  justify-content: center;
 `;
 
 const Input = styled.input`
   opacity: 0;
+  height: 0;
+  width: 0;
 
-  &:checked + label > ${Checkbox} {
+  &:checked + ${Label} > ${Checkbox} {
     background-color: rgb(0, 111, 233);
     border-width: 0;
   }
 
-  &:checked + label > ${Checkbox} > ${SvgWrapper} {
+  &:checked + ${Label} > ${Checkbox} > ${SvgWrapper} {
     visibility: visible;
   }
 `;
@@ -73,7 +79,7 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
             name={name}
             onChange={event => updateOptionalChoice(event, _id, name, price)}
           />
-          <label key={_id} htmlFor={_id}>
+          <Label key={_id} htmlFor={_id}>
             <Checkbox>
               <SvgWrapper>
                 <svg id="check" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -83,7 +89,7 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
               </SvgWrapper>
             </Checkbox>
             <span>{`Add ${name} + $${price.toFixed(2)}`}</span>
-          </label>
+          </Label>
         </CheckboxWrapper>
       ))}
     </ChoicesWrapper>
