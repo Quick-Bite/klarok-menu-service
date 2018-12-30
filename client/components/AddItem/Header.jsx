@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Times } from 'styled-icons/fa-solid';
+import BlueTimes from './BlueTimes';
 
 const StyledHeader = styled.header`
   width: 768px;
@@ -27,14 +27,6 @@ const Name = styled.h3`
 const Price = styled.h5`
   margin: 0;
   font-size: 18px;
-`;
-
-const BlueTimes = styled(Times)`
-  color: rgb(0, 111, 233);
-
-  &:hover {
-    color: #004FBF;
-  }
 `;
 
 const CloseButton = styled.button`

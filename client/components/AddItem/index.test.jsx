@@ -3,6 +3,10 @@ import { mount } from 'enzyme';
 import AddItem from './index';
 import data from './sampleData/data';
 
+jest.mock('./BlueTimes', () => (
+  () => <div></div>
+));
+
 describe('AddItem optional choices', () => {
   let wrapper;
   let OptionalChoices;
