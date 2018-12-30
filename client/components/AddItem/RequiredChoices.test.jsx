@@ -53,10 +53,10 @@ describe('RequiredChoices', () => {
   });
 
   it('renders the correct number of categories', () => {
-    expect(wrapper.find('h4')).toHaveLength(2);
+    expect(wrapper.find('Category')).toHaveLength(2);
   });
 
   it('renders the correct number of choices', () => {
-    expect(wrapper.find('input')).toHaveLength(5);
+    expect(wrapper.find('Input')).toHaveLength(5);
   });
 });

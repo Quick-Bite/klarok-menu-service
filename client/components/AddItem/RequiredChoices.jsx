@@ -13,6 +13,8 @@ const Category = styled.div`
   margin-bottom: 20px;
 `;
 
+Category.displayName = 'Category';
+
 const Header = styled.h4`
   margin: 0;
   font-size: 16.5px;
@@ -80,6 +82,8 @@ const Input = styled.input`
     visibility: visible;
   }
 `;
+
+Input.displayName = 'Input';
 
 const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
   <Wrapper>
