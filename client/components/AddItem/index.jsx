@@ -41,6 +41,10 @@ const Description = styled.p`
   line-height: 1.38;
 `;
 
+const StyledSection = styled.section`
+  margin-top: 40px;
+`;
+
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
@@ -179,11 +183,11 @@ class AddItem extends React.Component {
               <Description>{description}</Description>
               <QuantityPicker updateQuantity={this.updateQuantity} />
             </section>
-            <section>
+            <StyledSection>
               {optionalChoicesComponent}
               {requiredChoicesComponent}
               <SpecialInstructions handleChange={this.updateSpecialInstructions} />
-            </section>
+            </StyledSection>
             <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
           </ModalBody>
         </ModalMain>
