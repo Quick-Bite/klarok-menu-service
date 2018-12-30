@@ -72,14 +72,14 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
     <Info>Optional - Choose as many as you like.</Info>
     <ChoicesWrapper>
       {optionalChoices.map(({ _id, name, price }) => (
-        <CheckboxWrapper>
+        <CheckboxWrapper key={_id}>
           <Input
             id={_id}
             type="checkbox"
             name={name}
             onChange={event => updateOptionalChoice(event, _id, name, price)}
           />
-          <Label key={_id} htmlFor={_id}>
+          <Label htmlFor={_id}>
             <Checkbox>
               <SvgWrapper>
                 <svg id="check" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">

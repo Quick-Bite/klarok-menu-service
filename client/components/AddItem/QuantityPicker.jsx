@@ -111,7 +111,7 @@ class QuantityPicker extends React.Component {
         <Header>Quantity</Header>
         <ControlsWrapper>
           <Button
-            className="decrement"
+            id="quantity-decrement"
             type="button"
             onClick={this.decrementQuantity}
             disabled={quantity <= 1}
@@ -123,9 +123,9 @@ class QuantityPicker extends React.Component {
               </svg>
             </SvgWrapper>
           </Button>
-          <Input value={quantity} type="number" onChange={this.handleChange} />
+          <Input id="quantity-input" value={quantity} type="number" onChange={this.handleChange} />
           <Button
-            className="increment"
+            id="quantity-increment"
             type="button"
             onClick={this.incrementQuantity}
           >
