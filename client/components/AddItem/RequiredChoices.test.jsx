@@ -2,6 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import RequiredChoices from './RequiredChoices';
 
+jest.mock('./Ribbon', () => (
+  () => <div></div>
+));
+
 describe('RequiredChoices', () => {
   const choiceCategories = [
     {

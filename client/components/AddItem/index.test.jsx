@@ -6,6 +6,9 @@ import data from './sampleData/data';
 jest.mock('./BlueTimes', () => (
   () => <div></div>
 ));
+jest.mock('./Ribbon', () => (
+  () => <div></div>
+));
 
 describe('AddItem optional choices', () => {
   let wrapper;
