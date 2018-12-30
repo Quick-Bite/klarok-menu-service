@@ -20,8 +20,44 @@ const ChoicesWrapper = styled.div`
   }
 `;
 
-const Label = styled.label`
+const CheckboxWrapper = styled.div`
   display: flex;
+  justify-content: center;
+`;
+
+const Checkbox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+  border: 2px solid;
+  border-radius: 2px;
+  border-color: rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: white;
+`;
+
+const SvgWrapper = styled.div`
+  width: 12px;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+`;
+
+const Input = styled.input`
+  opacity: 0;
+
+  &:checked + label > ${Checkbox} {
+    background-color: rgb(0, 111, 233);
+    border-width: 0;
+  }
+
+  &:checked + label > ${Checkbox} > ${SvgWrapper} {
+    visibility: visible;
+  }
 `;
 
 const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
@@ -30,15 +66,25 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
     <Info>Optional - Choose as many as you like.</Info>
     <ChoicesWrapper>
       {optionalChoices.map(({ _id, name, price }) => (
-        <Label key={_id} htmlFor={name}>
-          <input
+        <CheckboxWrapper>
+          <Input
             id={_id}
             type="checkbox"
             name={name}
             onChange={event => updateOptionalChoice(event, _id, name, price)}
           />
-          <span>{`Add ${name} + $${price.toFixed(2)}`}</span>
-        </Label>
+          <label key={_id} htmlFor={_id}>
+            <Checkbox>
+              <SvgWrapper>
+                <svg id="check" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M10.04 13.9l8.55-8.55 2.47 2.47-8.55 8.55-2.47 2.48-7.07-7.07 2.48-2.47 4.59 4.59zm0 0" fill="currentColor"></path>
+                </svg>
+              </SvgWrapper>
+            </Checkbox>
+            <span>{`Add ${name} + $${price.toFixed(2)}`}</span>
+          </label>
+        </CheckboxWrapper>
       ))}
     </ChoicesWrapper>
   </div>
