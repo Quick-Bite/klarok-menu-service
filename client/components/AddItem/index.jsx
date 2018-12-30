@@ -25,9 +25,10 @@ const ModalOutside = styled.div`
 const ModalMain = styled.form`
   background-color: white;
   max-width: 768px;
-  max-height: 90%;
+  max-height: 92%;
   overflow-y: scroll;
   position: relative;
+  border-radius: 5px;
 `;
 
 const ModalBody = styled.div`
@@ -140,6 +141,7 @@ class AddItem extends React.Component {
       description,
       optionalChoices,
       requiredChoiceCategories,
+      pictureUrl,
     } = item;
     const {
       totalPrice, readyToOrder, scrollTop, navNeverShown,
@@ -165,7 +167,7 @@ class AddItem extends React.Component {
       <ModalOutside onClick={event => (event.target === event.currentTarget ? close() : null)}>
         <ModalMain onScroll={this.updateScroll}>
           {nav}
-          <Header name={name} price={totalPrice} close={close} />
+          <Header name={name} price={totalPrice} close={close} pictureUrl={pictureUrl} />
           <ModalBody>
             <section>
               <p>{description}</p>
