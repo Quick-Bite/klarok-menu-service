@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Ribbon from './Ribbon';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -11,6 +12,7 @@ const Category = styled.div`
   border-radius: 4px;
   padding: 8px 16px;
   margin-bottom: 20px;
+  position: relative;
 `;
 
 Category.displayName = 'Category';
@@ -22,14 +24,12 @@ const Header = styled.h4`
 
 const Info = styled.p`
   margin: 0;
-  /* margin-bottom: 10px; */
   font-size: 15px;
 `;
 
 const ChoicesWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* row-gap: 10px; */
 
   @media screen and (max-width: 575px) {
     grid-template-columns: 1fr;
@@ -85,10 +85,30 @@ const Input = styled.input`
 
 Input.displayName = 'Input';
 
+const RibbonWrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  left: -30px;
+  transform: rotate(90deg);
+  width: 35px;
+  height: 25px;
+  overflow: scroll;
+`;
+
+const RibbonInnerWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -17px;
+`;
+
 const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
   <Wrapper>
     {choiceCategories.map(({ name: category, choices }) => (
       <Category key={category}>
+        <RibbonWrapper>
+          <RibbonInnerWrapper><Ribbon size="35" /></RibbonInnerWrapper>
+        </RibbonWrapper>
         <Header>{`Choose a ${category}`}</Header>
         <Info>Required - Choose 1.</Info>
         <ChoicesWrapper>
