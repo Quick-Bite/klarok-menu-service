@@ -188,8 +188,8 @@ class AddItem extends React.Component {
               {requiredChoicesComponent}
               <SpecialInstructions handleChange={this.updateSpecialInstructions} />
             </StyledSection>
-            <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
           </ModalBody>
+          <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
         </ModalMain>
       </ModalOutside>
     );
