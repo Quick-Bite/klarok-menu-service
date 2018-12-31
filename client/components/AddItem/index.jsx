@@ -35,6 +35,16 @@ const ModalBody = styled.div`
   padding: 0 32px;
 `;
 
+const Description = styled.p`
+  font-family: 'Nunito-Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.38;
+`;
+
+const StyledSection = styled.section`
+  margin-top: 40px;
+`;
+
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
@@ -170,14 +180,14 @@ class AddItem extends React.Component {
           <Header name={name} price={totalPrice} close={close} pictureUrl={pictureUrl} />
           <ModalBody>
             <section>
-              <p>{description}</p>
+              <Description>{description}</Description>
               <QuantityPicker updateQuantity={this.updateQuantity} />
             </section>
-            <section>
+            <StyledSection>
               {optionalChoicesComponent}
               {requiredChoicesComponent}
               <SpecialInstructions handleChange={this.updateSpecialInstructions} />
-            </section>
+            </StyledSection>
             <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
           </ModalBody>
         </ModalMain>
