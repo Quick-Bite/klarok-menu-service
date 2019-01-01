@@ -37,4 +37,4 @@ const getAllMenuItems = restaurantId => (
 );
 const getSingleMenuItem = (restaurantId, itemId) => MenuItem.findOne({ restaurantId, itemId });
 
-module.exports = { getAllMenuItems, getSingleMenuItem };
+module.exports = { getAllMenuItems, getSingleMenuItem, MenuItem };

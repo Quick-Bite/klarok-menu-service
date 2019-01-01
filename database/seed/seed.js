@@ -1,4 +1,4 @@
-const MenuItem = require('../index');
+const { MenuItem } = require('../index');
 const generateData = require('./dataGenerator');
 
 const params = {
@@ -9,7 +9,7 @@ const params = {
   numRequiredChoices: { max: 4, min: 2 },
   priceRange: { max: 20, min: 1 },
   popularFraction: 0.2,
-  spicyFraction: 0.1,
+  spicyFraction: 0.2,
 };
 
 const data = generateData(params);

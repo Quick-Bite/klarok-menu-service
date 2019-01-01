@@ -1,4 +1,4 @@
-const MenuItem = require('../index');
+const { MenuItem } = require('../index');
 
 MenuItem.deleteMany({}, (err) => {
   if (err) {
