@@ -31,5 +31,10 @@ app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
   }
 });
 
+app.post('/restaurants/:id/order', (req, res) => {
+  console.log(req.body);
+  res.sendStatus(201);
+});
+
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Listening on localhost:${PORT}`));
