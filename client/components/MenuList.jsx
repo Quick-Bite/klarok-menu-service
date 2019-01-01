@@ -30,7 +30,7 @@ const ListContainer = styled.ul`
 
 const MenuList = ({ items, categories, menuListItemClick, mostPopularItems }) => (
   <Outer>
-    <PopularItemsList mostPopularItems={mostPopularItems} />
+    <PopularItemsList mostPopularItems={mostPopularItems} menuListItemClick={menuListItemClick} />
     {categories.map(category => (
       <div key={category} className="category">
         <CategoryHeader>{category}</CategoryHeader>
