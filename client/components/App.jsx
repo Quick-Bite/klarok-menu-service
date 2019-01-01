@@ -28,7 +28,9 @@ class App extends React.Component {
       items: [],
       categories: [],
       currentItem: null,
+      mostPopularItems: [],
     };
+    this.NUM_MOST_POPULAR = 4;
     this.menuListItemClick = this.menuListItemClick.bind(this);
     this.close = this.close.bind(this);
   }
@@ -40,7 +42,16 @@ class App extends React.Component {
         const items = response.data;
         const categories = Array.from(new Set(items.map(item => item.category)));
         this.setState({ items, categories });
-      });
+        return items;
+      })
+      .then(items => this.setMostPopularItems(items));
+  }
+
+  setMostPopularItems(items) {
+    const mostPopularItems = items
+      .filter(item => item.popular)
+      .slice(0, this.NUM_MOST_POPULAR);
+    this.setState({ mostPopularItems });
   }
 
   menuListItemClick(itemId) {
@@ -57,13 +68,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { items, categories, currentItem } = this.state;
+    const { items, categories, currentItem, mostPopularItems } = this.state;
     return (
       <Container>
         <GlobalStyle currentItem={currentItem} />
         {currentItem ? <AddItem item={currentItem} close={this.close} /> : null}
         <MenuList
           items={items}
+          mostPopularItems={mostPopularItems}
           categories={categories}
           menuListItemClick={this.menuListItemClick}
         />
