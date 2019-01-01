@@ -63,10 +63,14 @@ const Price = styled.span`
   position: absolute;
   top: 5px;
   right: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.75);
   border-radius: 4px;
   font-weight: bold;
   padding: 2px 5px;
+
+  &:hover {
+    background-color: white;
+  }
 `;
 
 const Spicy = styled(Fire)`
