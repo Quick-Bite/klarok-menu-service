@@ -7,6 +7,8 @@ const StyledHeader = styled.header`
   width: 768px;
   height: 300px;
   background-image: url(${props => props.pictureUrl});
+  background-size: cover;
+  background-position: 50% 50%;
   position: relative;
 `;
 

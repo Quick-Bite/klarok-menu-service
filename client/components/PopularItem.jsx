@@ -24,6 +24,8 @@ const Container = styled.div`
   height: 127px;
   padding: 8px;
   background-image: url(${props => props.pictureUrl});
+  background-size: cover;
+  background-position: 50% 50%;
   border-radius: 4px;
   cursor: pointer;
 
