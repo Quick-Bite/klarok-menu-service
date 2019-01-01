@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  box-sizing: border-box;
+  height: 127px;
+  padding: 8px;
+  background-image: url(${props => props.pictureUrl});
+  border-radius: 4px;
+`;
 
 const PopularItem = ({ item, handleClick }) => (
-  <div onClick={() => handleClick(item.itemId)}>
+  <Container onClick={() => handleClick(item.itemId)} pictureUrl={item.pictureUrl}>
     {item.name}
     {item.price}
     {item.pictureUrl}
-  </div>
+  </Container>
 );
 
 PopularItem.propTypes = {
