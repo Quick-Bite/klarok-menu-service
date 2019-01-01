@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Award, Fire } from 'styled-icons/fa-solid';
+import { Fire } from 'styled-icons/fa-solid';
+import PopularBadge from './PopularBadge';
 
 const Container = styled.div`
   display: flex;
@@ -45,10 +46,6 @@ const Name = styled.h6`
   }
 `;
 
-const Popular = styled(Award)`
-  color: #FFAD00;
-`;
-
 const Description = styled.p`
   color: rgba(0, 0, 0, 0.55);
   font-family: 'Nunito Sans', sans-serif;
@@ -82,7 +79,7 @@ const MenuListItem = ({ item, menuListItemClick }) => (
     <Main>
       <Header>
         <Name id="Name">{item.name}</Name>
-        <span>{item.popular ? <Popular id="Popular" size="12" /> : null}</span>
+        <span>{item.popular ? <PopularBadge id="Popular" size="12" /> : null}</span>
       </Header>
       <Description id="Description">{item.description}</Description>
       <div>{item.spicy ? <Spicy size="12" /> : null}</div>
