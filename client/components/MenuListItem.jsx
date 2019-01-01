@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Fire } from 'styled-icons/fa-solid';
+import spicyIcon from './chili.png';
 import PopularBadge from './PopularBadge';
 
 const Container = styled.div`
@@ -70,8 +70,9 @@ const Price = styled.span`
   }
 `;
 
-const Spicy = styled(Fire)`
-  color: #FF4D00;
+const Spicy = styled.img`
+  width: 18px;
+  height: auto;
 `;
 
 const MenuListItem = ({ item, menuListItemClick }) => (
@@ -82,7 +83,7 @@ const MenuListItem = ({ item, menuListItemClick }) => (
         <span>{item.popular ? <PopularBadge id="Popular" size="12" /> : null}</span>
       </Header>
       <Description id="Description">{item.description}</Description>
-      <div>{item.spicy ? <Spicy size="12" /> : null}</div>
+      <div>{item.spicy ? <Spicy src={spicyIcon} alt="spicy" /> : null}</div>
     </Main>
     <Image src={item.pictureUrl} alt="menu item" />
     <Price>{`$${item.price.toFixed(2)}+`}</Price>

@@ -2,6 +2,7 @@
 
 # Webpack
 bundle.js
+public/*.png
 
 # Logs
 logs
