@@ -35,9 +35,9 @@ const Button = styled.button`
   }
 `;
 
-const Footer = ({ price, readyToOrder, close }) => (
+const Footer = ({ price, readyToOrder, submitOrder }) => (
   <StyledFooter>
-    <Button type="button" disabled={!readyToOrder} onClick={close}>
+    <Button type="button" disabled={!readyToOrder} onClick={submitOrder}>
       {`Add to bag : $${price.toFixed(2)}`}
     </Button>
   </StyledFooter>
@@ -46,7 +46,7 @@ const Footer = ({ price, readyToOrder, close }) => (
 Footer.propTypes = {
   price: PropTypes.number.isRequired,
   readyToOrder: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired,
+  submitOrder: PropTypes.func.isRequired,
 };
 
 export default Footer;

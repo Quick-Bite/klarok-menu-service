@@ -10,6 +10,7 @@ jest.mock('styled-icons/fa-solid', () => ({
 describe('MenuList', () => {
   let items;
   let categories;
+  let mostPopularItems;
   const menuListItemClick = () => {};
 
   beforeEach(() => {
@@ -49,6 +50,7 @@ describe('MenuList', () => {
       },
     ];
     categories = ['Breakfast', 'Burgers'];
+    mostPopularItems = [];
   });
 
   it('renders the number of items given as props', () => {
@@ -57,6 +59,7 @@ describe('MenuList', () => {
         items={items}
         categories={categories}
         menuListItemClick={menuListItemClick}
+        mostPopularItems={mostPopularItems}
       />,
     );
     expect(wrapper.find('MenuListItem')).toHaveLength(3);
@@ -68,6 +71,7 @@ describe('MenuList', () => {
         items={items}
         categories={categories}
         menuListItemClick={menuListItemClick}
+        mostPopularItems={mostPopularItems}
       />,
     );
     const categoryWrappers = wrapper.find('.category');

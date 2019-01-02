@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Award, Fire } from 'styled-icons/fa-solid';
+import spicyIcon from './chili.png';
+import PopularBadge from './PopularBadge';
 
 const Container = styled.div`
   display: flex;
@@ -45,10 +46,6 @@ const Name = styled.h6`
   }
 `;
 
-const Popular = styled(Award)`
-  color: #FFAD00;
-`;
-
 const Description = styled.p`
   color: rgba(0, 0, 0, 0.55);
   font-family: 'Nunito Sans', sans-serif;
@@ -63,14 +60,19 @@ const Price = styled.span`
   position: absolute;
   top: 5px;
   right: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.75);
   border-radius: 4px;
   font-weight: bold;
   padding: 2px 5px;
+
+  &:hover {
+    background-color: white;
+  }
 `;
 
-const Spicy = styled(Fire)`
-  color: #FF4D00;
+const Spicy = styled.img`
+  width: 18px;
+  height: auto;
 `;
 
 const MenuListItem = ({ item, menuListItemClick }) => (
@@ -78,10 +80,10 @@ const MenuListItem = ({ item, menuListItemClick }) => (
     <Main>
       <Header>
         <Name id="Name">{item.name}</Name>
-        <span>{item.popular ? <Popular id="Popular" size="12" /> : null}</span>
+        <span>{item.popular ? <PopularBadge id="Popular" size="12" /> : null}</span>
       </Header>
       <Description id="Description">{item.description}</Description>
-      <div>{item.spicy ? <Spicy size="12" /> : null}</div>
+      <div>{item.spicy ? <Spicy src={spicyIcon} alt="spicy" /> : null}</div>
     </Main>
     <Image src={item.pictureUrl} alt="menu item" />
     <Price>{`$${item.price.toFixed(2)}+`}</Price>

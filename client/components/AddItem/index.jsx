@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import axios from 'axios';
 import Nav from './Nav';
 import Header from './Header';
 import QuantityPicker from './QuantityPicker';
@@ -48,7 +49,8 @@ const StyledSection = styled.section`
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
-    const { item: { requiredChoiceCategories, price } } = props;
+    const { item } = props;
+    const { requiredChoiceCategories, price, name, restaurantId } = item;
     const requiredSelections = requiredChoiceCategories.reduce(
       (selections, { name }) => {
         selections[name] = null;
@@ -57,6 +59,8 @@ class AddItem extends React.Component {
     );
     const readyToOrder = Object.keys(requiredSelections).length === 0;
     this.state = {
+      name,
+      restaurantId,
       requiredSelections,
       readyToOrder,
       quantity: 1,
@@ -74,6 +78,7 @@ class AddItem extends React.Component {
     this.updateRequiredChoice = this.updateRequiredChoice.bind(this);
     this.updateSpecialInstructions = this.updateSpecialInstructions.bind(this);
     this.updateScroll = this.updateScroll.bind(this);
+    this.submitOrder = this.submitOrder.bind(this);
   }
 
   updateQuantity(quantity) {
@@ -144,6 +149,38 @@ class AddItem extends React.Component {
     }
   }
 
+  submitOrder() {
+    const {
+      name,
+      restaurantId,
+      totalPrice,
+      quantity,
+      requiredSelections,
+      optionalChoices,
+      specialInstructions,
+    } = this.state;
+    const { close } = this.props;
+    const choices = [
+      ...Object.values(optionalChoices),
+      ...Object.values(requiredSelections),
+    ].map(choice => choice.name);
+    axios.post(`/restaurants/${restaurantId}/order`, {
+      name,
+      totalPrice,
+      quantity,
+      choices,
+      specialInstructions,
+    })
+      .then(() => {
+        console.log('POST successful!');
+        close();
+      })
+      .catch((err) => {
+        console.err(err);
+        close();
+      });
+  }
+
   render() {
     const { item, close } = this.props;
     const {
@@ -189,7 +226,11 @@ class AddItem extends React.Component {
               <SpecialInstructions handleChange={this.updateSpecialInstructions} />
             </StyledSection>
           </ModalBody>
-          <Footer price={totalPrice} readyToOrder={readyToOrder} close={close} />
+          <Footer
+            price={totalPrice}
+            readyToOrder={readyToOrder}
+            submitOrder={this.submitOrder}
+          />
         </ModalMain>
       </ModalOutside>
     );

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MenuListItem from './MenuListItem';
+import PopularItemsList from './PopularItemsList';
 
 const Outer = styled.section`
   margin: 0 8px;
@@ -27,8 +28,9 @@ const ListContainer = styled.ul`
   }
 `;
 
-const MenuList = ({ items, categories, menuListItemClick }) => (
+const MenuList = ({ items, categories, menuListItemClick, mostPopularItems }) => (
   <Outer>
+    <PopularItemsList mostPopularItems={mostPopularItems} menuListItemClick={menuListItemClick} />
     {categories.map(category => (
       <div key={category} className="category">
         <CategoryHeader>{category}</CategoryHeader>
@@ -48,6 +50,7 @@ const MenuList = ({ items, categories, menuListItemClick }) => (
 
 MenuList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mostPopularItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   menuListItemClick: PropTypes.func.isRequired,
 };

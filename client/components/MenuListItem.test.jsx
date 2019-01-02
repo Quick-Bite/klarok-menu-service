@@ -4,7 +4,6 @@ import MenuListItem from './MenuListItem';
 
 jest.mock('styled-icons/fa-solid', () => ({
   Award: 'Award',
-  Fire: 'Fire',
 }));
 
 describe('MenuListItem', () => {
