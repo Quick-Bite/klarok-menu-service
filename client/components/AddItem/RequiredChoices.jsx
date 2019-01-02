@@ -25,6 +25,7 @@ const Header = styled.h4`
 const Info = styled.p`
   margin: 0;
   font-size: 15px;
+  font-family: 'Nunito Sans', sans-serif;
 `;
 
 const ChoicesWrapper = styled.div`
@@ -66,7 +67,7 @@ const RadioSelected = styled.div`
 const Label = styled.label`
   display: flex;
   justify-content: flex-start;
-  
+  font-family: 'Nunito Sans', sans-serif;
 `;
 
 const Input = styled.input`

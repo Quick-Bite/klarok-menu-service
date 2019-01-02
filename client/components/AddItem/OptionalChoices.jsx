@@ -9,6 +9,7 @@ const Header = styled.h4`
 const Info = styled.p`
   margin: 0;
   margin-bottom: 20px;
+  font-family: 'Nunito Sans', sans-serif;
 `;
 
 const ChoicesWrapper = styled.div`
@@ -49,6 +50,7 @@ const SvgWrapper = styled.div`
 const Label = styled.label`
   display: flex;
   justify-content: center;
+  font-family: 'Nunito Sans', sans-serif;
 `;
 
 const Input = styled.input`
