@@ -61,6 +61,10 @@ const Input = styled.input`
     border-width: 0;
   }
 
+  &:focus + ${Label} > ${Checkbox} {
+    outline: rgb(59, 153, 252) auto 5px;
+  }
+
   &:checked + ${Label} > ${Checkbox} > ${SvgWrapper} {
     visibility: visible;
   }

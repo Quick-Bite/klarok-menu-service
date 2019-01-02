@@ -78,6 +78,10 @@ const Input = styled.input`
     border-color: rgb(0, 111, 233);
   }
 
+  &:focus + ${Label} > ${Radio} {
+    outline: rgb(59, 153, 252) auto 5px;
+  }
+
   &:checked + ${Label} > ${Radio} > ${RadioSelected} {
     visibility: visible;
   }
