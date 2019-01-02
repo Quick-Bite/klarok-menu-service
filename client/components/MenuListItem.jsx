@@ -12,9 +12,14 @@ const Container = styled.div`
   border-radius: 4px;
   cursor: pointer;
   position: relative;
+  transition: transform 0.1s ease-in-out;
 
   &:hover {
     outline: solid rgba(0, 0, 0, 0.2) 1px;
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 

@@ -9,6 +9,7 @@ const Header = styled.h4`
 const Info = styled.p`
   margin: 0;
   margin-bottom: 20px;
+  font-family: 'Nunito Sans', sans-serif;
 `;
 
 const ChoicesWrapper = styled.div`
@@ -49,6 +50,7 @@ const SvgWrapper = styled.div`
 const Label = styled.label`
   display: flex;
   justify-content: center;
+  font-family: 'Nunito Sans', sans-serif;
 `;
 
 const Input = styled.input`
@@ -59,6 +61,10 @@ const Input = styled.input`
   &:checked + ${Label} > ${Checkbox} {
     background-color: rgb(0, 111, 233);
     border-width: 0;
+  }
+
+  &:focus + ${Label} > ${Checkbox} {
+    outline: rgb(59, 153, 252) auto 5px;
   }
 
   &:checked + ${Label} > ${Checkbox} > ${SvgWrapper} {
