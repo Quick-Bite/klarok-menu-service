@@ -19,7 +19,7 @@ Clone of Grubhub.com restaurant page. This is the module for the menu list and m
 
 This is one of the four services listed above. They all need to be run together in a proxy server.
 
-Run `npm run seedDb` to seed the database;
+Run `npm run seedDb` to seed the database.
 
 ## Requirements
 
