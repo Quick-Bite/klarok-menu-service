@@ -1,13 +1,13 @@
 # Project Name
 
-> Project description
+Clone of Grubhub.com restaurant page. This is the module for the menu list and menu item modal.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/HRSF108-Group7/FEC-profile
+  - https://github.com/HRSF108-Group7/FEC-menu
+  - https://github.com/HRSF108-Group7/FEC-suggestion
+  - https://github.com/HRSF108-Group7/FEC-Ammar-Project
 
 ## Table of Contents
 
@@ -17,7 +17,9 @@
 
 ## Usage
 
-> Some usage instructions
+This is one of the four services listed above. They all need to be run together in a proxy server.
+
+Run `npm run seedDb` to seed the database;
 
 ## Requirements
 
