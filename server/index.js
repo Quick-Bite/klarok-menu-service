@@ -36,5 +36,5 @@ app.post('/restaurants/:id/order', (req, res) => {
   res.sendStatus(201);
 });
 
-const PORT = 3000;
+const PORT = 3002;
 app.listen(PORT, () => console.log(`Listening on localhost:${PORT}`));
