@@ -10,6 +10,4 @@ RUN npm install --only=prod
 
 EXPOSE 3002
 
-RUN npm run seedDb
-
 CMD ["npm", "start"]
