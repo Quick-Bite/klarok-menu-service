@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN npm install
+RUN npm install --only=prod
 
 EXPOSE 3002
 

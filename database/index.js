@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-mongoose.connect('mongodb://database/menu', { useNewUrlParser: true });
+mongoose.connect('mongodb://172.17.0.2/menu', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
@@ -37,4 +37,4 @@ const getAllMenuItems = restaurantId => (
 );
 const getSingleMenuItem = (restaurantId, itemId) => MenuItem.findOne({ restaurantId, itemId });
 
-module.exports = { getAllMenuItems, getSingleMenuItem, MenuItem };
+module.exports = { getAllMenuItems, getSingleMenuItem, MenuItem, db };

@@ -1,4 +1,4 @@
-const { MenuItem } = require('../index');
+const { MenuItem, db } = require('../index');
 const generateData = require('./dataGenerator');
 
 const params = {
@@ -22,4 +22,5 @@ MenuItem.insertMany(data, (err, menuItems) => {
   console.log('Insertion successful!');
   console.log('First item of inserted data:');
   console.log(menuItems[0]);
+  db.close();
 });
