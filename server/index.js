@@ -13,6 +13,8 @@ app.get('/restaurants/:id/menu-items', async (req, res) => {
   const restaurantId = req.params.id;
   try {
     const menuItems = await db.getAllMenuItems(restaurantId);
+    console.log('Retrieved from database:');
+    console.log(menuItems);
     res.send(menuItems);
   } catch (err) {
     console.error(err);

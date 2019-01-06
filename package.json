@@ -8,7 +8,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon ./server/index.js",
+    "start": "node ./server/index.js",
+    "nodemon": "nodemon ./server/index.js",
     "build": "webpack",
     "watch": "webpack --watch",
     "seedDb": "node ./database/seed/seed.js",
@@ -20,6 +21,7 @@
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "faker": "^4.1.0",
     "mongoose": "^5.4.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
@@ -44,7 +46,6 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "faker": "^4.1.0",
     "file-loader": "^3.0.1",
     "jest": "^23.6.0",
     "regenerator-runtime": "^0.13.1",
