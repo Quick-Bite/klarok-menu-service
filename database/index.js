@@ -1,47 +1,64 @@
-const fs = require('fs');
-const { Transform } = require('stream');
-const cassandra = require('cassandra-driver');
-const readline = require('readline');
+const mongoose = require('mongoose');
+const generateData = require('./seed/dataGenerator');
+mongoose.Promise = require('bluebird');
 
-const client = new cassandra.Client({
-  contactPoints: ['127.0.0.1'],
-  localDataCenter: 'datacenter1',
-  keyspace: 'clue',
+mongoose.connect('mongodb://172.17.0.2/menu', { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('We\'re connected!');
 });
 
+const menuItemSchema = new mongoose.Schema({
+  restaurantId: Number,
+  itemId: Number,
+  name: String,
+  price: Number,
+  description: String,
+  category: String,
+  pictureUrl: String,
+  popular: Boolean,
+  spicy: Boolean,
+  requiredChoiceCategories: [{
+    name: String,
+    choices: [{
+      name: String,
+      price: Number,
+    }],
+  }],
+  optionalChoices: [{
+    name: String,
+    price: Number,
+  }],
+});
 
-const sample = (req, res) => {
-  const query = 'SELECT * FROM menu3 where restaurant_id = 4830';
-  client.execute(query)
-    .then(result => res.send(result.rows));
+const MenuItem = mongoose.model('MenuItem', menuItemSchema);
+
+const params = {
+  numMenuItems: { max: 50, min: 10 },
+  numItemCategories: { max: 3, min: 1 },
+  numOptionalChoices: { max: 6, min: 0 },
+  numRequiredChoiceCategories: { max: 2, min: 0 },
+  numRequiredChoices: { max: 4, min: 2 },
+  priceRange: { max: 20, min: 1 },
+  popularFraction: 0.2,
+  spicyFraction: 0.2,
 };
 
-module.exports.sample = sample;
+const data = generateData(params);
+MenuItem.insertMany(data, (err, menuItems) => {
+  if (err) {
+    return console.error(err);
+  }
 
-// const query = 'COPY menu3 (item_id, restaurant_id, name, price, picture_url, category, description, required, optional) FROM \'/Users/kara/Documents/hackreactor/sdc/menu/data.csv\' WITH DELIMITER=\'~\';';
+  console.log('Insertion successful!');
+  console.log('First item of inserted data:');
+  console.log(menuItems[0]);
+});
 
-// let queries = [];
-// let reader = fs.createReadStream('./data.csv');
-// let transformer = new Transform({
-//   transform(chunk, encoding, callback) {
-    // queries.push({
-    //   query: `INSERT INTO menu3 
-    //     (item_id, restaurant_id, name, price, picture_url, category, description, required, optional) 
-    //     'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    //   params: [chunk.toString().split('~')],
-    // });
-    // console.log(chunk.toString().split('~')[2]);
-    // this.push(chunk.toString().split('\n'));
-//     console.log(chunk.toString().split('\n'));
-//     callback();
-//   },
-// });
+const getAllMenuItems = restaurantId => (
+  MenuItem.find({ restaurantId }).select('-requiredChoiceCategories -optionalChoices')
+);
+const getSingleMenuItem = (restaurantId, itemId) => MenuItem.findOne({ restaurantId, itemId });
 
-// const rl = readline.createInterface({
-//   input: reader,
-//   output: transformer,
-// });
-
-// reader.pipe(transformer);
-// // client.execute(query)
-// //   .then(result => console.log(result));
+module.exports = { getAllMenuItems, getSingleMenuItem, MenuItem, db };
