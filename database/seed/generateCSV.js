@@ -8,25 +8,31 @@ const openInput = (start, stop) => {
   return new Stream.Readable({
     read() {
       let restaurantId = start;
+      let batched = '';
       while (restaurantId <= stop) {
-        if (restaurantId % 1000 === 0) { console.log(restaurantId); }
         for (let itemId = 0; itemId <= generate.int(8, 15); itemId++) {
-          this.push(generate.item({ itemId, restaurantId }));
+          batched += generate.item({ itemId, restaurantId });
+        }
+        if (restaurantId % 1000 === 0) { 
+          console.log(restaurantId); 
+          this.push(batched);
+          batched = '';
         }
         restaurantId++;
       }
-      console.log(`FINISHED ${start} TO ${stop}`);
+      // console.log(`FINISHED ${start} TO ${stop}`);
       this.push(null);
     },
   });
 };
 
 const openOutput = (number) => {
-  if (number % 100 !== 0) { //If not multiple of 100, append to current file
-    const current = Math.floor(number / 100);
-    return fs.createWriteStream(`./data${current}.csv`, { flags: 'a' });
-  }
-  return fs.createWriteStream(`./data${number / 100}.csv`);
+  // if (number % 100 !== 0) { //If not multiple of 100, append to current file
+  //   const current = Math.floor(number / 100);
+  //   return fs.createWriteStream(`./dataS${current}.csv`, { flags: 'a' });
+  // }
+  // return fs.createWriteStream(`./dataS${number / 100}.csv`);
+  return fs.createWriteStream(`./dataS.csv`);
 };
 
 const openPipe = (i, size) => {
@@ -49,4 +55,4 @@ async function generateCsv(count, size) {
   }
 }
 
-generateCsv(1000, 10000);
+generateCsv(20, 10000);

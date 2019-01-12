@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../database');
+// const db = require('../database');
+const db = require('../database/postgres.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,14 +24,16 @@ app.get('/restaurants/:id/menu-items', async (req, res) => {
 });
 
 app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
-  const { itemId, id: restaurantId } = req.params;
-  try {
-    const menuItem = await db.getSingleMenuItem(restaurantId, itemId);
-    res.send(menuItem);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
+  // const { itemId, id: restaurantId } = req.params;
+  // try {
+  //   const menuItem = await db.getSingleMenuItem(restaurantId, itemId);
+  //   res.send(menuItem);
+  // } catch (err) {
+  //   console.error(err);
+  //   res.sendStatus(500);
+  // }
+  // db.sample(req, res);
+  console.log(db.sample());
 });
 
 app.post('/restaurants/:id/order', (req, res) => {
