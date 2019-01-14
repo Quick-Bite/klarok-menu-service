@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const db = require('../database/cassandra.js');
-const db = require('../database/postgres.js');
+const db = require('../database/cassandra.js');
+// const db = require('../database/postgres.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,7 +13,6 @@ app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '
 app.get('/restaurants/:id/menu-items', async (req, res) => {
   try {
     const menu = await db.getMenu([req.params.id]);
-    console.log(menu);
     res.send(menu);
   } catch (err) {
     res.sendStatus(500);

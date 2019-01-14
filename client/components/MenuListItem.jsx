@@ -81,7 +81,7 @@ const Spicy = styled.img`
 `;
 
 const MenuListItem = ({ item, menuListItemClick }) => (
-  <Container onClick={() => menuListItemClick(item.itemId)}>
+  <Container onClick={() => menuListItemClick(item.item_id)}>
     <Main>
       <Header>
         <Name id="Name">{item.name}</Name>
@@ -90,19 +90,19 @@ const MenuListItem = ({ item, menuListItemClick }) => (
       <Description id="Description">{item.description}</Description>
       <div>{item.spicy ? <Spicy src={spicyIcon} alt="spicy" /> : null}</div>
     </Main>
-    <Image src={item.pictureUrl} alt="menu item" />
+    <Image src={item.picture_url} alt="menu item" />
     <Price>{`$${item.price.toFixed(2)}+`}</Price>
   </Container>
 );
 
 MenuListItem.propTypes = {
   item: PropTypes.shape({
-    itemId: PropTypes.number.isRequired,
+    item_id: PropTypes.number.isRequired,
     restaurantId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    pictureUrl: PropTypes.string.isRequired,
+    picture_url: PropTypes.string.isRequired,
     popular: PropTypes.bool.isRequired,
     spicy: PropTypes.bool.isRequired,
   }).isRequired,

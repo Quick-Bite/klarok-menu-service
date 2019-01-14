@@ -117,7 +117,9 @@ const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
         <Header>{`Choose a ${category}`}</Header>
         <Info>Required - Choose 1.</Info>
         <ChoicesWrapper>
-          {choices.map(({ _id, name, price }) => (
+          {choices.map(({ _id, name, price }) => { 
+            console.log(name, price);
+            return (
             <RadioWrapper key={_id}>
               <Input
                 type="radio"
@@ -129,10 +131,10 @@ const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
                 <Radio>
                   <RadioSelected />
                 </Radio>
-                <span>{`${name} + $${price.toFixed(2)}`}</span>
+                <span>{`${name} + $${price}`}</span>
               </Label>
             </RadioWrapper>
-          ))}
+          )})}
         </ChoicesWrapper>
       </Category>
     ))}

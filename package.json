@@ -50,6 +50,7 @@
     "eslint-plugin-react": "^7.11.1",
     "file-loader": "^3.0.1",
     "jest": "^23.6.0",
+    "loadtest": "^3.0.4",
     "regenerator-runtime": "^0.13.1",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",

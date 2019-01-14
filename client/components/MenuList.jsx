@@ -38,7 +38,7 @@ const MenuList = ({ items, categories, menuListItemClick, mostPopularItems }) =>
           {items
             .filter(item => item.category === category)
             .map(item => (
-              <li key={item.itemId}>
+              <li key={item.item_id}>
                 <MenuListItem item={item} menuListItemClick={menuListItemClick} />
               </li>
             ))}

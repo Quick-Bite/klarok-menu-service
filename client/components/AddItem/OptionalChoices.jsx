@@ -94,7 +94,7 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
                 </svg>
               </SvgWrapper>
             </Checkbox>
-            <span>{`Add ${name} + $${price.toFixed(2)}`}</span>
+            <span>{`Add ${name} + $${price}`}</span>
           </Label>
         </CheckboxWrapper>
       ))}

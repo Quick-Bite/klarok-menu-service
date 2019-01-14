@@ -50,7 +50,7 @@ class AddItem extends React.Component {
   constructor(props) {
     super(props);
     const { item } = props;
-    const { requiredChoiceCategories, price, name, restaurantId } = item;
+    const { required: requiredChoiceCategories, price, name, restaurantId } = item;
     const requiredSelections = requiredChoiceCategories.reduce(
       (selections, { name }) => {
         selections[name] = null;
@@ -186,8 +186,8 @@ class AddItem extends React.Component {
     const {
       name,
       description,
-      optionalChoices,
-      requiredChoiceCategories,
+      optional: optionalChoices,
+      required: requiredChoiceCategories,
       pictureUrl,
     } = item;
     const {
