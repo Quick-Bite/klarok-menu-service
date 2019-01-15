@@ -55,8 +55,8 @@ const Label = styled.label`
 
 const Input = styled.input`
   opacity: 0;
-  height: 0;
-  width: 0;
+  height: 10px;
+  width: 10px;
 
   &:checked + ${Label} > ${Checkbox} {
     background-color: rgb(0, 111, 233);
@@ -83,7 +83,7 @@ const OptionalChoices = ({ optionalChoices, updateOptionalChoice }) => (
             id={_id}
             type="checkbox"
             name={name}
-            onChange={event => updateOptionalChoice(event, _id, name, price)}
+            onChange={event => updateOptionalChoice(event, _id, name, parseFloat(price))}
           />
           <Label htmlFor={_id}>
             <Checkbox>
