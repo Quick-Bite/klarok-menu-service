@@ -15,14 +15,25 @@ const getMenu = (params) => {
   //   FROM menu WHERE restaurant_id = ?`;
   // const query = 'SELECT JSON jso FROM jsontest where id = ?';
   return client.execute(query, params, { prepare: true })
-    .then(menu => menu.rows)
+    .then((menu) => {
+      return menu.rows.map((item) => {
+        item.required = JSON.parse(item.required);
+        item.optional = JSON.parse(item.optional);
+        return item;
+      });
+    })
     .catch(err => console.log('ERROR GETTING ITEM', err));
 };
 
 const getItem = (params) => {
-  const query = 'SELECT toJson(required), required FROM menu WHERE restaurant_id = ? AND item_id = ?';
+  const query = 'SELECT * FROM menu WHERE restaurant_id = ? AND item_id = ?';
   return client.execute(query, params, { prepare: true })
-    .then(menu => menu.rows)
+    .then(menu => menu.rows[0])
+    .then((item) => {
+      item.required = JSON.parse(item.required);
+      item.optional = JSON.parse(item.optional);
+      return item;
+    })
     .catch(err => console.log('ERROR GETTING ITEM', err));
 };
 
