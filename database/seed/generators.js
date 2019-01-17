@@ -76,10 +76,7 @@ const generateItem = ({ itemId, restaurantId, categories }) => {
     + `${JSON.stringify(item.optionalChoices)}\n`;
   return row;
 };
-console.log(faker.commerce.department());
-// console.log(generateItem({ itemId: 1, restaurantId: 1, categories: ['Dessert', 'Appetizers'] }));
-// module.exports.item = generateItem;
-// module.exports.int = getRandInt;
+
 module.exports = {
   item: generateItem,
   int: getRandInt,

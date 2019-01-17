@@ -4,7 +4,6 @@ const fs = require('fs');
 const generate = require('./generators.js');
 
 const openInput = (start, stop) => {
-  // console.log(start, stop);
   return new Stream.Readable({
     read() {
       let restaurantId = start;
@@ -17,13 +16,8 @@ const openInput = (start, stop) => {
         if (restaurantId % 1000 === 0) { 
           console.log(restaurantId);
         }
-        // if (restaurantId % 10000 === 0) {
-        //   this.push(batched);
-        //   batched = '';
-        // }
         restaurantId++;
       }
-      // console.log(`FINISHED ${start} TO ${stop}`);
       this.push(batched);
       this.push(null);
     },
@@ -31,12 +25,11 @@ const openInput = (start, stop) => {
 };
 
 const openOutput = (number) => {
-  if (number % 250 !== 0) { //If not multiple of 100, append to current file
+  if (number % 250 !== 0) {
     const current = Math.floor(number / 250);
     return fs.createWriteStream(`./data${current}.csv`, { flags: 'a' });
   }
   return fs.createWriteStream(`./data${number / 250}.csv`);
-  // return fs.createWriteStream(`./dataS.csv`);
 };
 
 const openPipe = (loop, size) => {
@@ -55,7 +48,6 @@ const openPipe = (loop, size) => {
 async function generateCsv(count, size) {
   for (let i = 0; i < count; i++) {
     const response = await openPipe(i, size);
-    // console.log('RESULTS FROM PIPE', response);
   }
 }
 
