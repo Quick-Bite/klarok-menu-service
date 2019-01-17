@@ -72,8 +72,8 @@ const Label = styled.label`
 
 const Input = styled.input`
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 10px;
+  height: 10px;
 
   &:checked + ${Label} > ${Radio} {
     border-color: rgb(0, 111, 233);
@@ -117,22 +117,23 @@ const RequiredChoices = ({ choiceCategories, updateRequiredChoice }) => (
         <Header>{`Choose a ${category}`}</Header>
         <Info>Required - Choose 1.</Info>
         <ChoicesWrapper>
-          {choices.map(({ _id, name, price }) => (
+          {choices.map(({ _id, name, price }) => { 
+            return (
             <RadioWrapper key={_id}>
               <Input
                 type="radio"
                 name={category}
                 id={_id}
-                onChange={() => updateRequiredChoice(category, _id, name, price)}
+                onChange={() => updateRequiredChoice(category, _id, name, parseFloat(price))}
               />
               <Label htmlFor={_id}>
                 <Radio>
                   <RadioSelected />
                 </Radio>
-                <span>{`${name} + $${price.toFixed(2)}`}</span>
+                <span>{`${name} + $${price}`}</span>
               </Label>
             </RadioWrapper>
-          ))}
+          )})}
         </ChoicesWrapper>
       </Category>
     ))}

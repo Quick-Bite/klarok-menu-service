@@ -18,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
   background-color: #EFEFEF;
-  
 `;
 
 class App extends React.Component {
@@ -44,7 +43,9 @@ class App extends React.Component {
         this.setState({ items, categories });
         return items;
       })
-      .then(items => this.setMostPopularItems(items));
+      .then(items => this.setMostPopularItems(items))
+      .then(() => console.log(this.state.items))
+      .catch(err => console.log('ERROR FETCHING MENU UPON MOUNT', err));
   }
 
   setMostPopularItems(items) {
@@ -54,12 +55,15 @@ class App extends React.Component {
     this.setState({ mostPopularItems });
   }
 
-  menuListItemClick(itemId) {
-    const url = `${window.location.pathname}/menu-items/${itemId}`;
+  menuListItemClick(item_id) {
+    const url = `${window.location.pathname}/menu-items/${item_id}`;
     axios.get(url.replace('//', '/'))
       .then((response) => {
         const item = response.data;
         this.setState({ currentItem: item });
+      })
+      .catch((err) => {
+        console.log('Menu: ERROR GETTING INDIVIDUAL ITEM INFO', err);
       });
   }
 

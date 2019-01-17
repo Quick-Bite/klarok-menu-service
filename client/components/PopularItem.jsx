@@ -40,7 +40,7 @@ const Container = styled.div`
 `;
 
 const PopularItem = ({ item, handleClick }) => (
-  <Container onClick={() => handleClick(item.itemId)} pictureUrl={item.pictureUrl}>
+  <Container onClick={() => handleClick(item.item_id)} pictureUrl={item.picture_url}>
     <NameAndPriceBox>
       <Heading>{item.name}</Heading>
       <Heading>{`$${item.price.toFixed(2)}+`}</Heading>
@@ -50,10 +50,10 @@ const PopularItem = ({ item, handleClick }) => (
 
 PopularItem.propTypes = {
   item: PropTypes.shape({
-    itemId: PropTypes.number.isRequired,
+    item_id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    pictureUrl: PropTypes.string.isRequired,
+    picture_url: PropTypes.string.isRequired,
   }).isRequired,
   handleClick: PropTypes.func.isRequired,
 };

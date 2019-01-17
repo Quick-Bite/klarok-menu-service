@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../database');
+const db = require('../database/cassandra.js');
+// const db = require('../database/postgres.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,25 +11,19 @@ app.use(express.static('public'));
 app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html')));
 
 app.get('/restaurants/:id/menu-items', async (req, res) => {
-  const restaurantId = req.params.id;
   try {
-    const menuItems = await db.getAllMenuItems(restaurantId);
-    console.log('Retrieved from database:');
-    console.log(menuItems);
-    res.send(menuItems);
+    const menu = await db.getMenu([req.params.id]);
+    res.send(menu);
   } catch (err) {
-    console.error(err);
     res.sendStatus(500);
   }
 });
 
 app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
-  const { itemId, id: restaurantId } = req.params;
   try {
-    const menuItem = await db.getSingleMenuItem(restaurantId, itemId);
-    res.send(menuItem);
+    const item = await db.getItem([req.params.id, req.params.itemId]);
+    res.send(item);
   } catch (err) {
-    console.error(err);
     res.sendStatus(500);
   }
 });
