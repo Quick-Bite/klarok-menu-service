@@ -1,12 +1,23 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../database/cassandra.js');
-// const db = require('../database/postgres.js');
+const morgan = require('morgan');
+const cluster = require('cluster');
+// const db = require('../database/cassandra.js');
+const db = require('../database/postgres.js');
+
+// if (cluster.isMaster) {
+//   for (let i = 0; i < 4; i++) {
+//     cluster.fork();
+//   }
+//   // cluster.fork();
+// } else {
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
+// app.use(morgan('short'));
 
 app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html')));
 
@@ -35,3 +46,9 @@ app.post('/restaurants/:id/order', (req, res) => {
 
 const PORT = 3002;
 app.listen(PORT, () => console.log(`Listening on localhost:${PORT}`));
+// }
+
+// cluster.on('exit', (worker) => {
+//   console.log('mayday! mayday! worker', worker.id, ' is no more!');
+//   // cluster.fork();
+// });

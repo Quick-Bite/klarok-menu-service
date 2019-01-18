@@ -8,11 +8,12 @@ const client = new Client({
 client.connect();
 
 const getMenu = async (params) => {
-  const query = `SELECT 
-      item_id, restaurant_id, name, price, picture_url, 
-      popular, spicy, category, description, 
-      required::json, optional::json 
-    FROM menu WHERE restaurant_id = $1`;
+  // const query = `SELECT 
+  //     item_id, restaurant_id, name, price, picture_url, 
+  //     popular, spicy, category, description, 
+  //     required::json, optional::json 
+  //   FROM menu WHERE restaurant_id = $1`;
+  const query = `SELECT * FROM menu WHERE restaurant_id = $1`;
   try {
     const menu = await client.query(query, params);
     return menu.rows;
