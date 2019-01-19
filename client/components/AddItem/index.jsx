@@ -50,7 +50,7 @@ class AddItem extends React.Component {
   constructor(props) {
     super(props);
     const { item } = props;
-    const { required: requiredChoiceCategories, price, name, restaurantId } = item;
+    const { required: requiredChoiceCategories, price, name, restaurant_id: restaurantId, item_id } = item;
     const requiredSelections = requiredChoiceCategories.reduce(
       (selections, { name }) => {
         selections[name] = null;
@@ -60,6 +60,7 @@ class AddItem extends React.Component {
     const readyToOrder = Object.keys(requiredSelections).length === 0;
     this.state = {
       name,
+      item_id,
       restaurantId,
       requiredSelections,
       readyToOrder,
@@ -153,6 +154,7 @@ class AddItem extends React.Component {
     const {
       name,
       restaurantId,
+      item_id,
       totalPrice,
       quantity,
       requiredSelections,
@@ -164,8 +166,10 @@ class AddItem extends React.Component {
       ...Object.values(optionalChoices),
       ...Object.values(requiredSelections),
     ].map(choice => choice.name);
+    console.log(this.state);
     axios.post(`/restaurants/${restaurantId}/order`, {
       name,
+      item_id,
       totalPrice,
       quantity,
       choices,

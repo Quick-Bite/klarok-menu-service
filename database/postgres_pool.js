@@ -38,7 +38,20 @@ const getItem = async (params) => {
   }
 };
 
+const postOrder = async (params) => {
+  const query = `INSERT INTO orders (restaurant_id, user_id, order_id, created, total, item_id, quantity, choices, instructions)
+  VALUES ($1, $2, DEFAULT, $3, $4, $5, $6, $7, $8)`;
+  try {
+    const result = await pool.query(query, params);
+    return result;
+  } catch (err) {
+    console.log('ERROR POSTING ORDER', err);
+    return err;
+  }
+};
+
 module.exports = {
   getMenu,
   getItem,
+  postOrder,
 };

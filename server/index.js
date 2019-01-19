@@ -44,9 +44,24 @@ app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
     });
 });
 
-app.post('/restaurants/:id/order', (req, res) => {
-  // console.log(req.body);
-  res.sendStatus(201);
+app.post('/restaurants/:id/order', async (req, res) => {
+  const params = [
+    req.params.id,
+    1,
+    new Date(),
+    req.body.totalPrice,
+    req.body.item_id,
+    req.body.quantity,
+    JSON.stringify(req.body.choices),
+    req.body.specialInstructions,
+  ];
+  try {
+    console.log(params);
+    await db.postOrder(params);
+    res.sendStatus(201);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
 const PORT = 3002;
