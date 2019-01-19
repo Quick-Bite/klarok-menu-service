@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('../database/postgres_pool.js');
 const redis = require('../database/redis.js');
-// const cluster = require('cluster');
 
 const app = express();
 app.use(bodyParser.json());
@@ -56,7 +55,6 @@ app.post('/restaurants/:id/order', async (req, res) => {
     req.body.specialInstructions,
   ];
   try {
-    console.log(params);
     await db.postOrder(params);
     res.sendStatus(201);
   } catch (err) {
