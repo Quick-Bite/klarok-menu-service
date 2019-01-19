@@ -2,8 +2,9 @@ require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../database/postgres.js');
+const db = require('../database/postgres_pool.js');
 const redis = require('../database/redis.js');
+// const cluster = require('cluster');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,6 +13,8 @@ app.use(express.static('public'));
 app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html')));
 
 app.get('/restaurants/:id/menu-items', async (req, res) => {
+  // const menu = await db.getMenu([req.params.id]);
+  // res.send(menu);
   redis.getFromCache(`/restaurants/${req.params.id}`)
     .then(async (result) => {
       if (result !== null) {
@@ -26,6 +29,8 @@ app.get('/restaurants/:id/menu-items', async (req, res) => {
 });
 
 app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
+  // const item = await db.getItem([req.params.id, req.params.itemId]);
+  // res.send(item);
   redis.getFromCache(`/restaurants/${req.params.id}/menu-items/${req.params.itemId}`)
     .then(async (result) => {
       if (result !== null) {
