@@ -2,53 +2,47 @@ require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const morgan = require('morgan');
-const cluster = require('cluster');
-// const db = require('../database/cassandra.js');
 const db = require('../database/postgres.js');
-
-// if (cluster.isMaster) {
-//   for (let i = 0; i < 4; i++) {
-//     cluster.fork();
-//   }
-//   // cluster.fork();
-// } else {
+const redis = require('../database/redis.js');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
-// app.use(morgan('short'));
 
 app.get('/restaurants/:id', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html')));
 
 app.get('/restaurants/:id/menu-items', async (req, res) => {
-  try {
-    const menu = await db.getMenu([req.params.id]);
-    res.send(menu);
-  } catch (err) {
-    res.sendStatus(500);
-  }
+  redis.getFromCache(`/restaurants/${req.params.id}`)
+    .then(async (result) => {
+      if (result !== null) {
+        res.send(JSON.parse(result));
+      } else {
+        const menu = await db.getMenu([req.params.id]);
+        redis.addToCache(`/restaurants/${req.params.id}`, JSON.stringify(menu))
+          .catch(err => res.sendStatus(500));
+        res.send(menu);
+      }
+    });
 });
 
 app.get('/restaurants/:id/menu-items/:itemId', async (req, res) => {
-  try {
-    const item = await db.getItem([req.params.id, req.params.itemId]);
-    res.send(item);
-  } catch (err) {
-    res.sendStatus(500);
-  }
+  redis.getFromCache(`/restaurants/${req.params.id}/menu-items/${req.params.itemId}`)
+    .then(async (result) => {
+      if (result !== null) {
+        res.send(JSON.parse(result));
+      } else {
+        const item = await db.getItem([req.params.id, req.params.itemId]);
+        redis.addToCache(`/restaurants/${req.params.id}/menu-items/${req.params.itemId}`, JSON.stringify(item))
+          .catch(err => res.sendStatus(500));
+        res.send(item);
+      }
+    });
 });
 
 app.post('/restaurants/:id/order', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.sendStatus(201);
 });
 
 const PORT = 3002;
 app.listen(PORT, () => console.log(`Listening on localhost:${PORT}`));
-// }
-
-// cluster.on('exit', (worker) => {
-//   console.log('mayday! mayday! worker', worker.id, ' is no more!');
-//   // cluster.fork();
-// });
