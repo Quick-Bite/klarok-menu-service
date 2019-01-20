@@ -4,54 +4,67 @@ const generate = require('./generators.js');
 const { Client } = require('pg');
 var copyFrom = require('pg-copy-streams').from;
 
-const client = new Client({
+const pgClient = new Client({
   user: 'sdc',
   host: 'localhost',
   database: 'sdc',
 });
 
-client.connect(function(err, client, done) {
-  var stream = client.query(copyFrom('COPY test FROM STDIN'));
-  const input = new Stream.Readable({
+const NUM_CYCLES = 10;
+const NUM_SIZE = 100000;
+
+const openInput = (start, stop) => {
+  return new Stream.Readable({
     read() {
-      let count = 0;
-      let batch = '';
-      while (count < 5) {
-        batch += count + '\t' + count + '\n';
-        count++;
+      let restaurantId = start;
+      let batched = '';
+      while (restaurantId <= stop) {
+        const categories = generate.categories();
+        for (let itemId = 0; itemId <= generate.int(5, 15); itemId++) {
+          batched += generate.item({ itemId, restaurantId, categories });
+          // batched += `${restaurantId}\t${itemId}\n`;
+        }
+        if (restaurantId % 1000 === 0) { 
+          console.log(restaurantId);
+        }
+        if (restaurantId % 10000 === 0) {
+          this.push(batched);
+          batched = '';
+        }
+        restaurantId++;
       }
-      console.log(batch);
-      this.push(batch);
+      // this.push(batched);
       this.push(null);
-    }
+    },
   });
-  input.on('error', () => console.log('input error') );
-  stream.on('error', () => console.log('output error'));
-  stream.on('end', () => console.log('output done'));
+};
+
+const openPipe = (err, client, done) => {
+  // const [start, stop] = [LOOP * SIZE + 1, (LOOP + 1) * SIZE];
+  const input = openInput(1, NUM_SIZE);
+  // LOOP++;
+
+  const stream = client.query(copyFrom('COPY menu2 FROM STDIN'));
+
+  input.on('error', () => console.log('input error', err));
+  stream.on('error', () => console.log('output error', err));
+  stream.on('end', () => {
+    console.log('output done');
+    client.end();
+  });
+  input.on('end', () => console.log('input closed'));
   input.pipe(stream);
-});
+};
 
+pgClient.connect(openPipe);
 
-// const openInput = (start, stop) => {
-//   return new Stream.Readable({
-//     read() {
-//       let restaurantId = start;
-//       let batched = '';
-//       while (restaurantId <= stop) {
-//         const categories = generate.categories();
-//         for (let itemId = 0; itemId <= generate.int(5, 15); itemId++) {
-//           batched += generate.item({ itemId, restaurantId, categories });
-//         }
-//         if (restaurantId % 1000 === 0) { 
-//           console.log(restaurantId);
-//         }
-//         restaurantId++;
-//       }
-//       this.push(batched);
-//       this.push(null);
-//     },
-//   });
+// const generateDirect = async (count, size) => {
+//   for (let i = 0; i < count; i++) {
+//     await pgClient.connect(openPipe);
+//   }
 // };
+
+// generateDirect(5, 1);
 
 // const openOutput = (number) => {
 //   if (number % 250 !== 0) {

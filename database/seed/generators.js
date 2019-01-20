@@ -68,11 +68,11 @@ const generateItem = ({ itemId, restaurantId, categories }) => {
   };
   item.requiredChoiceCategories = getRandArray(generateChoiceList, 0, 3, item.price);
   item.optionalChoices = getRandArray(generateChoice, 0, 4, item.price);
-  const row = `${item.itemId}~${item.restaurantId}~${item.name}~`
-    + `${item.price}~${item.pictureUrl}~`
-    + `${item.popular}~${item.spicy}~`
-    + `${item.category}~${item.description}~`
-    + `${JSON.stringify(item.requiredChoiceCategories)}~`
+  const row = `${item.itemId}\t${item.restaurantId}\t${item.name}\t`
+    + `${item.price}\t${item.pictureUrl}\t`
+    + `${item.popular}\t${item.spicy}\t`
+    + `${item.category}\t${item.description}\t`
+    + `${JSON.stringify(item.requiredChoiceCategories)}\t`
     + `${JSON.stringify(item.optionalChoices)}\n`;
   return row;
 };
