@@ -68,3 +68,6 @@ typings/
 
 # Generated CSVs for database seeding
 csv/
+
+# API Key
+newrelic.js
