@@ -4,12 +4,6 @@ const client = redis.createClient();
 
 client.onAsync('connect', () => console.log('REDIS CONNECTED'));
 
-// client.set('mykey', 'myvalue', redis.print);
-// client.get('mykey', (err, result) => {
-//   if (err) throw err;
-//   console.log('GOT FROM CACHE', result);
-// });
-
 const getFromCache = (key) => {
   return client.getAsync(key)
     .then(result => result)

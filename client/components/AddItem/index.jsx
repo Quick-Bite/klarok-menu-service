@@ -166,7 +166,6 @@ class AddItem extends React.Component {
       ...Object.values(optionalChoices),
       ...Object.values(requiredSelections),
     ].map(choice => choice.name);
-    console.log(this.state);
     axios.post(`/restaurants/${restaurantId}/order`, {
       name,
       item_id,

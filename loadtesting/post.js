@@ -1,5 +1,5 @@
 import http from "k6/http";
-import { check, sleep } from "k6";
+import { check } from "k6";
 
 const getInt = (start, stop) => Math.floor(Math.random() * (stop - start) + start);
 const toPopular = () => Math.random() < 0.6;
@@ -9,7 +9,6 @@ const getIID = () => getInt(1, 5);
 export let options = {
   vus: 200,
   duration: "300s",
-  // rps: 1
 };
 
 export default function() {
@@ -27,14 +26,4 @@ export default function() {
   check(res, {
     "success": (r) => r.status == 201
   });
-};
-// const params = [
-//   req.params.id,
-//   1,
-//   new Date(),
-//   req.body.totalPrice,
-//   req.body.item_id,
-//   req.body.quantity,
-//   JSON.stringify(req.body.choices),
-//   req.body.specialInstructions,
-// ];
+}
