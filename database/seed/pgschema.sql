@@ -1,5 +1,5 @@
 
-CREATE TABLE menu2 (
+CREATE TABLE menu (
   item_id INTEGER,
   restaurant_id INTEGER,
   name VARCHAR(40),
@@ -14,4 +14,4 @@ CREATE TABLE menu2 (
   PRIMARY KEY (restaurant_id, item_id)
 );
 
-CREATE INDEX restaurant_idx2 ON menu2 (restaurant_id);
+CREATE INDEX restaurant_idx ON menu (restaurant_id);
