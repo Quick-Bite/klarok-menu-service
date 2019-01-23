@@ -7,13 +7,13 @@ const getRID = () => ((toPopular()) ? getInt(9500000, 9501000) : getInt(1, 10000
 const getIID = () => getInt(1, 5);
 
 export let options = {
-  vus: 200,
-  duration: "300s",
-  // rps: 1500
+  vus: 2,
+  duration: "30s",
+  rps: 10
 };
 
 export default function() {
-  const res = http.get(`http://localhost:3002/restaurants/${getRID()}`);
+  const res = http.get(`http://ec2-13-52-81-151.us-west-1.compute.amazonaws.com:3002/restaurants/${getRID()}`);
   check(res, {
     "success": (r) => r.status == 200
   });

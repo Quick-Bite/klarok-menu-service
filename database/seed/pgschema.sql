@@ -1,4 +1,3 @@
-
 CREATE TABLE menu (
   item_id INTEGER,
   restaurant_id INTEGER,
